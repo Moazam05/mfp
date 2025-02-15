@@ -1,9 +1,9 @@
 import { merge } from "webpack-merge";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import webpack from "webpack";
-const ModuleFederationPlugin = webpack.container.ModuleFederationPlugin;
-
 import commonConfig from "./webpack.common.js";
+
+const ModuleFederationPlugin = webpack.container.ModuleFederationPlugin;
 
 const devConfig = {
   mode: "development",
