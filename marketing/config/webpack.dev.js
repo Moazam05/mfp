@@ -5,6 +5,7 @@ const commonConfig = require("./webpack.common");
 
 const ModuleFederationPlugin =
   require("webpack").container.ModuleFederationPlugin;
+const packageJson = require("../package.json");
 
 const devConfig = {
   mode: "development",
@@ -25,6 +26,7 @@ const devConfig = {
       exposes: {
         "./MarketingApp": "./src/bootstrap",
       },
+      shared: packageJson.dependencies,
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
