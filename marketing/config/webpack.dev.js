@@ -1,8 +1,10 @@
 const { merge } = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+// Custom Import
+const commonConfig = require("./webpack.common");
+
 const ModuleFederationPlugin =
   require("webpack").container.ModuleFederationPlugin;
-const commonConfig = require("./webpack.common");
 
 const devConfig = {
   mode: "development",
@@ -23,7 +25,6 @@ const devConfig = {
       exposes: {
         "./MarketingApp": "./src/bootstrap",
       },
-      shared: ["react", "react-dom"],
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
