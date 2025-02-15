@@ -8,10 +8,14 @@ const ModuleFederationPlugin =
 
 const devConfig = {
   mode: "development",
+  output: {
+    publicPath: "http://localhost:8080/", // Add this line
+  },
   devServer: {
     port: 8080,
-    historyApiFallback: {
-      index: "index.html",
+    historyApiFallback: true, // Simplify this to true
+    headers: {
+      "Access-Control-Allow-Origin": "*", // Add CORS headers
     },
   },
   plugins: [
