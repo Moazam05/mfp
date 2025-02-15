@@ -1,17 +1,19 @@
-module.exports = {
+const config = {
   module: {
     rules: [
       {
-        test: /\.m?js$/, // Match .js files
-        exclude: /node_modules/, // Exclude the node_modules folder
+        test: /\.m?js$/,
+        exclude: /node_modules/,
         use: {
-          loader: "babel-loader", // Use the Babel loader
+          loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-react", "@babel/preset-env"], // Use the React and ES6 presets
-            plugins: ["@babel/plugin-transform-runtime"], // Use the runtime transform plugin
+            presets: ["@babel/preset-react", "@babel/preset-env"],
+            plugins: ["@babel/plugin-transform-runtime"],
           },
         },
       },
     ],
   },
 };
+
+export default config;
