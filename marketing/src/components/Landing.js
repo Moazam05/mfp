@@ -92,8 +92,8 @@ export default function Album() {
                     sx={{
                       paddingTop: "56.25%", // 16:9
                     }}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
+                    image={`https://picsum.photos/400/225?random=${card}`}
+                    title={`Card ${card}`}
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
