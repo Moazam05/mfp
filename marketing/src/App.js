@@ -1,19 +1,19 @@
 import React from "react";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
-import { StylesProvider } from "@material-ui/core/styles";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { StyledEngineProvider } from "@mui/material/styles";
 
 import Landing from "./components/Landing";
 import Pricing from "./components/Pricing";
 
 export default () => {
   return (
-    <StylesProvider>
+    <StyledEngineProvider injectFirst>
       <BrowserRouter>
-        <Switch>
-          <Route exact path="/pricing" component={Pricing} />
-          <Route path="/" component={Landing} />
-        </Switch>
+        <Routes>
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/" element={<Landing />} />
+        </Routes>
       </BrowserRouter>
-    </StylesProvider>
+    </StyledEngineProvider>
   );
 };
