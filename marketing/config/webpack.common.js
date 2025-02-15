@@ -1,4 +1,4 @@
-const config = {
+module.exports = {
   module: {
     rules: [
       {
@@ -15,5 +15,3 @@ const config = {
     ],
   },
 };
-
-export default config;
