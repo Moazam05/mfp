@@ -3,12 +3,37 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 
 // Mount function to start up the app
-const mount = (el) => {
-  const root = createRoot(el); // Create a root
-  root.render(<App />); // Use root.render instead of ReactDOM.render
+const mount = (el, { onNavigate, defaultHistory } = {}) => {
+  const root = createRoot(el);
 
-  // Optional: Return a cleanup function if needed
+  // Initialize a navigation reference that will be set by the App
+  let navigationRef = null;
+
+  // Function to set the navigation reference
+  const setNavigationRef = (navigate) => {
+    navigationRef = navigate;
+  };
+
+  // Determine if we're running in standalone mode
+  const isStandalone = !onNavigate;
+
+  root.render(
+    <App
+      onNavigate={onNavigate}
+      defaultHistory={defaultHistory}
+      setNavigationRef={setNavigationRef}
+      isStandalone={isStandalone}
+    />
+  );
+
   return {
+    onParentNavigate({ pathname: nextPathname }) {
+      const { pathname } = window.location;
+
+      if (pathname !== nextPathname && navigationRef) {
+        navigationRef(nextPathname);
+      }
+    },
     unmount: () => root.unmount(),
   };
 };
