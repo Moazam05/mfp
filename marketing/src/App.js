@@ -27,17 +27,18 @@ const MountedApp = ({ onNavigate, setNavigationRef, initialPath }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    if (setNavigationRef) {
-      setNavigationRef(navigate);
-    }
-  }, [navigate, setNavigationRef]);
-
+  // Inside MountedApp component
   React.useEffect(() => {
     if (onNavigate) {
       onNavigate(location);
     }
   }, [location, onNavigate]);
+
+  React.useEffect(() => {
+    if (setNavigationRef) {
+      setNavigationRef(navigate);
+    }
+  }, [navigate, setNavigationRef]);
 
   return <RoutesComponent />;
 };

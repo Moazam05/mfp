@@ -8,32 +8,25 @@ const MarketingApp = () => {
   const location = useLocation();
 
   useEffect(() => {
+    if (!ref.current) return; // Guard clause
+
     const { onParentNavigate, unmount } = mount(ref.current, {
       initialPath: location.pathname,
       onNavigate: ({ pathname: nextPathname }) => {
         const { pathname } = location;
         if (pathname !== nextPathname) {
-          navigate(nextPathname, { replace: false });
+          navigate(nextPathname);
         }
       },
     });
 
-    const handleNavigation = () => {
-      if (onParentNavigate) {
-        onParentNavigate(location);
-      }
-    };
-
-    window.addEventListener("popstate", handleNavigation);
-
-    // Initial sync
-    handleNavigation();
+    // Update marketing app when container location changes
+    onParentNavigate(location);
 
     return () => {
-      window.removeEventListener("popstate", handleNavigation);
       unmount();
     };
-  }, []); // Empty dependency array to mount once
+  }, [location, navigate]); // Add location and navigate to dependencies
 
   return <div ref={ref} />;
 };
