@@ -60,9 +60,9 @@ export default function Album() {
             <Box sx={{ mt: 4 }}>
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
-                  <RouterLink to="/" style={{ textDecoration: "none" }}>
+                  <RouterLink to="/pricing" style={{ textDecoration: "none" }}>
                     <Button variant="contained" color="primary">
-                      Home
+                      Pricing
                     </Button>
                   </RouterLink>
                 </Grid>

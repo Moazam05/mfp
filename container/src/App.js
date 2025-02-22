@@ -1,5 +1,7 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import AuthApp from "./components/AuthApp";
 import MarketingApp from "./components/MarketingApp";
 import Header from "./components/header";
 
@@ -8,7 +10,10 @@ const App = () => {
     <BrowserRouter>
       <Header />
       <hr />
-      <MarketingApp />
+      <Routes>
+        <Route path="/auth/*" element={<AuthApp />} />
+        <Route path="/*" element={<MarketingApp />} />
+      </Routes>
     </BrowserRouter>
   );
 };
