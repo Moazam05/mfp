@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 
 // Mount function to start up the app
-const mount = (el, { onNavigate, defaultHistory } = {}) => {
+const mount = (el, { onNavigate, initialPath } = {}) => {
   const root = createRoot(el);
 
   // Initialize a navigation reference that will be set by the App
@@ -20,17 +20,15 @@ const mount = (el, { onNavigate, defaultHistory } = {}) => {
   root.render(
     <App
       onNavigate={onNavigate}
-      defaultHistory={defaultHistory}
       setNavigationRef={setNavigationRef}
       isStandalone={isStandalone}
+      initialPath={initialPath}
     />
   );
 
   return {
     onParentNavigate({ pathname: nextPathname }) {
-      const { pathname } = window.location;
-
-      if (pathname !== nextPathname && navigationRef) {
+      if (navigationRef) {
         navigationRef(nextPathname);
       }
     },

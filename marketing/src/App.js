@@ -23,7 +23,7 @@ const RoutesComponent = () => (
 );
 
 // Component for container mode
-const MountedApp = ({ onNavigate, setNavigationRef }) => {
+const MountedApp = ({ onNavigate, setNavigationRef, initialPath }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -42,7 +42,12 @@ const MountedApp = ({ onNavigate, setNavigationRef }) => {
   return <RoutesComponent />;
 };
 
-export default ({ onNavigate, setNavigationRef, isStandalone }) => {
+export default ({
+  onNavigate,
+  setNavigationRef,
+  isStandalone,
+  initialPath,
+}) => {
   return (
     <StyledEngineProvider injectFirst>
       {isStandalone ? (
@@ -50,10 +55,11 @@ export default ({ onNavigate, setNavigationRef, isStandalone }) => {
           <RoutesComponent />
         </BrowserRouter>
       ) : (
-        <MemoryRouter>
+        <MemoryRouter initialEntries={[initialPath || "/"]}>
           <MountedApp
             onNavigate={onNavigate}
             setNavigationRef={setNavigationRef}
+            initialPath={initialPath}
           />
         </MemoryRouter>
       )}
