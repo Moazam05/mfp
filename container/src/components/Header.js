@@ -13,7 +13,7 @@ export default function Header({ signedIn, onSignOut }) {
   };
 
   return (
-    <React.Fragment>
+    <>
       <AppBar position="static" color="default" elevation={0}>
         <Toolbar
           sx={{
@@ -49,6 +49,6 @@ export default function Header({ signedIn, onSignOut }) {
           </Button>
         </Toolbar>
       </AppBar>
-    </React.Fragment>
+    </>
   );
 }

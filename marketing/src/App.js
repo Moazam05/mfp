@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Routes,
   Route,
@@ -28,13 +28,13 @@ const MountedApp = ({ onNavigate, setNavigationRef, initialPath }) => {
   const navigate = useNavigate();
 
   // Inside MountedApp component
-  React.useEffect(() => {
+  useEffect(() => {
     if (onNavigate) {
       onNavigate(location);
     }
   }, [location, onNavigate]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (setNavigationRef) {
       setNavigationRef(navigate);
     }
