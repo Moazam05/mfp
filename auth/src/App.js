@@ -9,11 +9,15 @@ import {
 } from "react-router-dom";
 import { StyledEngineProvider } from "@mui/material/styles";
 
+import SignIn from "./components/Signin";
+import SignUp from "./components/Signup";
 import NotFound from "./components/NotFound";
 
 // Create routes component to avoid duplication
 const RoutesComponent = () => (
   <Routes>
+    <Route path="/auth/signin" element={<SignIn />} />
+    <Route path="/auth/signup" element={<SignUp />} />
     <Route path="*" element={<NotFound />} />
   </Routes>
 );
