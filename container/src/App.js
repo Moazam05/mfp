@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CircularProgress, Box } from "@mui/material";
-import Header from "./components/header";
+import Header from "./components/Header";
 
 const AuthApp = lazy(() => import("./components/AuthApp"));
 const MarketingApp = lazy(() => import("./components/MarketingApp"));
