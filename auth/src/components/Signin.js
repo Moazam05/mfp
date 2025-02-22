@@ -81,7 +81,7 @@ export default function SignIn({ onSignIn }) {
             sx={{
               mb: 2,
               "& .MuiOutlinedInput-root": {
-                borderRadius: 2,
+                borderRadius: 1,
                 bgcolor: "background.paper",
               },
             }}
@@ -99,7 +99,7 @@ export default function SignIn({ onSignIn }) {
             sx={{
               mb: 2,
               "& .MuiOutlinedInput-root": {
-                borderRadius: 2,
+                borderRadius: 1,
               },
             }}
           />
@@ -129,7 +129,7 @@ export default function SignIn({ onSignIn }) {
               mt: 2,
               mb: 3,
               py: 1.5,
-              borderRadius: 2,
+              borderRadius: 1,
               fontSize: "1.1rem",
               textTransform: "none",
               boxShadow: "0 4px 12px rgba(0,0,0,0.15)",

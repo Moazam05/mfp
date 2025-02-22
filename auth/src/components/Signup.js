@@ -81,7 +81,7 @@ export default function SignUp({ onSignIn }) {
                 variant="outlined"
                 sx={{
                   "& .MuiOutlinedInput-root": {
-                    borderRadius: 2,
+                    borderRadius: 1,
                   },
                 }}
               />
@@ -97,7 +97,7 @@ export default function SignUp({ onSignIn }) {
                 variant="outlined"
                 sx={{
                   "& .MuiOutlinedInput-root": {
-                    borderRadius: 2,
+                    borderRadius: 1,
                   },
                 }}
               />
@@ -113,7 +113,7 @@ export default function SignUp({ onSignIn }) {
                 variant="outlined"
                 sx={{
                   "& .MuiOutlinedInput-root": {
-                    borderRadius: 2,
+                    borderRadius: 1,
                   },
                 }}
               />
@@ -130,7 +130,7 @@ export default function SignUp({ onSignIn }) {
                 variant="outlined"
                 sx={{
                   "& .MuiOutlinedInput-root": {
-                    borderRadius: 2,
+                    borderRadius: 1,
                   },
                 }}
               />
@@ -163,7 +163,7 @@ export default function SignUp({ onSignIn }) {
               mt: 3,
               mb: 2,
               py: 1.5,
-              borderRadius: 2,
+              borderRadius: 1,
               fontSize: "1.1rem",
               textTransform: "none",
               boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
