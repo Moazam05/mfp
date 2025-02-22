@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CircularProgress, Box } from "@mui/material";
 import Header from "./components/header";
 
 const AuthApp = lazy(() => import("./components/AuthApp"));
@@ -16,17 +17,19 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div
-          style={{
+        <Box
+          sx={{
             display: "flex",
+            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             height: "calc(100vh - 70px)",
-            color: "#666",
+            color: "text.secondary",
+            gap: 2,
           }}
         >
-          Something went wrong. Please refresh the page.
-        </div>
+          <span>Something went wrong. Please refresh the page.</span>
+        </Box>
       );
     }
     return this.props.children;
@@ -34,25 +37,27 @@ class ErrorBoundary extends React.Component {
 }
 
 const LoadingFallback = () => (
-  <div
-    style={{
+  <Box
+    sx={{
       display: "flex",
+      flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
       height: "calc(100vh - 70px)",
+      gap: 2,
     }}
   >
-    <div
-      style={{
-        padding: "20px",
-        borderRadius: "8px",
-        textAlign: "center",
-        color: "#666",
+    <CircularProgress
+      size={40}
+      thickness={4}
+      sx={{
+        color: "primary.main",
+        "& .MuiCircularProgress-circle": {
+          strokeLinecap: "round",
+        },
       }}
-    >
-      Loading...
-    </div>
-  </div>
+    />
+  </Box>
 );
 
 const App = () => {
