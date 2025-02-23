@@ -1,15 +1,15 @@
 // Redux Toolkit Imports
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const getInitialUsers = () => ({
   data: [],
 });
 
 // Find user based on email
-const findUser = (users, email) => users.find(user => user.email === email);
+const findUser = (users, email) => users.find((user) => user.email === email);
 
 const userSlice = createSlice({
-  name: 'users',
+  name: "users",
   initialState: getInitialUsers(),
   reducers: {
     addUser(state, action) {
@@ -17,7 +17,7 @@ const userSlice = createSlice({
     },
 
     removeUser(state, action) {
-      state.data = state.data.filter(user => user.email !== action.payload);
+      state.data = state.data.filter((user) => user.email !== action.payload);
     },
 
     updateUser(state, action) {
@@ -29,7 +29,7 @@ const userSlice = createSlice({
   },
 });
 
-export const {addUser, removeUser, updateUser} = userSlice.actions;
+export const { addUser, removeUser, updateUser } = userSlice.actions;
 export default userSlice.reducer;
 
-export const selectUsers = state => state.users.data;
+export const selectUsers = (state) => state?.users?.data;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -10,7 +10,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import useTypedSelector from "../hooks/useTypedSelector";
+import { addUser, selectUsers } from "../redux/users/userSlice";
 
 function Copyright() {
   return (
@@ -25,6 +29,46 @@ function Copyright() {
 }
 
 export default function SignUp({ onSignIn }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const usersList = useTypedSelector(selectUsers);
+  const [loading, setLoading] = useState(false);
+
+  const handleSignUp = async (values) => {
+    try {
+      setLoading(true);
+      const payload = {
+        name: values.userName,
+        email: values.email.toLowerCase(),
+        password: values.password,
+      };
+
+      console.log("payload", payload);
+      return;
+
+      // find user based on email
+      const findUser = usersList.find(
+        (user) => user.email === values.email.toLowerCase()
+      );
+      if (findUser) {
+        setLoading(false);
+        alert("User already exists");
+        return;
+      }
+      await dispatch(addUser(payload));
+
+      // Add a 2-second delay before navigating
+      setTimeout(() => {
+        setLoading(false);
+        alert("User added successfully");
+        navigate("/auth/signin");
+      }, 2000); // 2000 milliseconds = 2 seconds
+    } catch (error) {
+      setLoading(false);
+      alert("Something went wrong");
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -175,7 +219,8 @@ export default function SignUp({ onSignIn }) {
               type="submit"
               fullWidth
               variant="contained"
-              onClick={onSignIn}
+              // onClick={onSignIn}
+              onClick={handleSignUp}
               sx={{
                 mt: 3,
                 mb: 2,

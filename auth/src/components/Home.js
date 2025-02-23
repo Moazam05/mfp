@@ -32,6 +32,9 @@ const Home = () => {
           >
             Welcome to Auth App
           </Typography>
+          <Typography variant="h5" component="p" gutterBottom sx={{ mb: 4 }}>
+            You are logged in as Salman Muazam
+          </Typography>
         </Container>
       </Box>
 
