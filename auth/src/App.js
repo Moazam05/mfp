@@ -9,10 +9,10 @@ import {
 } from "react-router-dom";
 import { StyledEngineProvider } from "@mui/material/styles";
 
-import Home from "./components/Home";
-import SignIn from "./components/Signin";
-import SignUp from "./components/Signup";
-import Notfound from "./components/Notfound";
+import Home from "./views/Home";
+import SignIn from "./views/Auth/Signin";
+import SignUp from "./views/Auth/Signup";
+import Notfound from "./views/NotFound";
 
 // Create routes component to avoid duplication
 const RoutesComponent = ({ onSignIn }) => (

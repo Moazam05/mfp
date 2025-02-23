@@ -15,11 +15,11 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import useTypedSelector from "../hooks/useTypedSelector";
-import { addUser, selectUsers } from "../redux/users/userSlice";
-import ToastAlert from "../components/ToastAlert";
-import Copyright from "./Copyright";
-import CustomTextField from "./CustomTextField";
+import useTypedSelector from "../../hooks/useTypedSelector";
+import { addUser, selectUsers } from "../../redux/users/userSlice";
+import ToastAlert from "../../components/ToastAlert";
+import Copyright from "../../components/Copyright";
+import CustomTextField from "../../components/CustomTextField";
 
 export default function SignUp({ onSignIn }) {
   const navigate = useNavigate();
@@ -44,6 +44,9 @@ export default function SignUp({ onSignIn }) {
         email: values.email.toLowerCase(),
         password: values.password,
       };
+
+      console.log("payload", payload);
+      return;
 
       const findUser = usersList.find(
         (user) => user.email === values.email.toLowerCase()
@@ -142,7 +145,6 @@ export default function SignUp({ onSignIn }) {
                       name="firstName"
                       label="First Name"
                       autoComplete="fname"
-                      autoFocus
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
