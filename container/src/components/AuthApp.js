@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { mount } from "auth/AuthApp";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const AuthApp = () => {
+const AuthApp = ({ onSignIn }) => {
   const ref = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,6 +17,9 @@ const AuthApp = () => {
         if (pathname !== nextPathname) {
           navigate(nextPathname);
         }
+      },
+      onSignIn: () => {
+        onSignIn();
       },
     });
 

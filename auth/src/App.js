@@ -11,23 +11,25 @@ import { StyledEngineProvider } from "@mui/material/styles";
 
 import SignIn from "./components/Signin";
 import SignUp from "./components/Signup";
-import NotFound from "./components/NotFound";
 
 // Create routes component to avoid duplication
-const RoutesComponent = () => (
+const RoutesComponent = ({ onSignIn }) => (
   <Routes>
-    <Route path="/auth/signin" element={<SignIn />} />
-    <Route path="/auth/signup" element={<SignUp />} />
-    <Route path="*" element={<NotFound />} />
+    <Route path="/auth/signin" element={<SignIn onSignIn={onSignIn} />} />
+    <Route path="/auth/signup" element={<SignUp onSignIn={onSignIn} />} />
   </Routes>
 );
 
 // Component for container mode
-const MountedApp = ({ onNavigate, setNavigationRef, initialPath }) => {
+const MountedApp = ({
+  onNavigate,
+  setNavigationRef,
+  initialPath,
+  onSignIn,
+}) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Inside MountedApp component
   useEffect(() => {
     if (onNavigate) {
       onNavigate(location);
@@ -40,20 +42,22 @@ const MountedApp = ({ onNavigate, setNavigationRef, initialPath }) => {
     }
   }, [navigate, setNavigationRef]);
 
-  return <RoutesComponent />;
+  return <RoutesComponent onSignIn={onSignIn} />;
 };
 
+// Main component that handles both standalone and container modes
 export default ({
   onNavigate,
   setNavigationRef,
   isStandalone,
   initialPath,
+  onSignIn,
 }) => {
   return (
     <StyledEngineProvider injectFirst>
       {isStandalone ? (
         <BrowserRouter>
-          <RoutesComponent />
+          <RoutesComponent onSignIn={onSignIn} />
         </BrowserRouter>
       ) : (
         <MemoryRouter initialEntries={[initialPath || "/"]}>
@@ -61,6 +65,7 @@ export default ({
             onNavigate={onNavigate}
             setNavigationRef={setNavigationRef}
             initialPath={initialPath}
+            onSignIn={onSignIn}
           />
         </MemoryRouter>
       )}
