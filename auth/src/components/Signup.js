@@ -1,10 +1,9 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import {
   Avatar,
   Button,
-  TextField,
   FormControlLabel,
   Checkbox,
   Grid,
@@ -20,13 +19,13 @@ import useTypedSelector from "../hooks/useTypedSelector";
 import { addUser, selectUsers } from "../redux/users/userSlice";
 import ToastAlert from "../components/ToastAlert";
 import Copyright from "./Copyright";
+import CustomTextField from "./CustomTextField";
 
 export default function SignUp({ onSignIn }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const usersList = useTypedSelector(selectUsers);
 
-  // Validation schema using Yup
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string().required("Last Name is required"),
@@ -46,7 +45,6 @@ export default function SignUp({ onSignIn }) {
         password: values.password,
       };
 
-      // Check if user already exists
       const findUser = usersList.find(
         (user) => user.email === values.email.toLowerCase()
       );
@@ -59,7 +57,6 @@ export default function SignUp({ onSignIn }) {
       await dispatch(addUser(payload));
       ToastAlert("User added successfully", "success");
 
-      // Simulate a delay before navigating
       setTimeout(() => {
         setSubmitting(false);
         navigate("/auth/signin");
@@ -136,81 +133,41 @@ export default function SignUp({ onSignIn }) {
             onSubmit={handleSignUp}
             validateOnMount={false}
           >
-            {({ isSubmitting, errors, touched }) => (
+            {({ isSubmitting }) => (
               <Form style={{ width: "100%" }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <Field
-                      as={TextField}
-                      autoComplete="fname"
+                      component={CustomTextField}
                       name="firstName"
-                      fullWidth
-                      id="firstName"
                       label="First Name"
+                      autoComplete="fname"
                       autoFocus
-                      variant="outlined"
-                      helperText={touched.firstName && errors.firstName}
-                      error={touched.firstName && !!errors.firstName}
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          borderRadius: 1,
-                        },
-                      }}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Field
-                      as={TextField}
-                      fullWidth
-                      id="lastName"
-                      label="Last Name"
+                      component={CustomTextField}
                       name="lastName"
+                      label="Last Name"
                       autoComplete="lname"
-                      variant="outlined"
-                      helperText={touched.lastName && errors.lastName}
-                      error={touched.lastName && !!errors.lastName}
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          borderRadius: 1,
-                        },
-                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
                     <Field
-                      as={TextField}
-                      fullWidth
-                      id="email"
-                      label="Email Address"
+                      component={CustomTextField}
                       name="email"
+                      label="Email Address"
                       autoComplete="email"
-                      variant="outlined"
-                      helperText={touched.email && errors.email}
-                      error={touched.email && !!errors.email}
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          borderRadius: 1,
-                        },
-                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
                     <Field
-                      as={TextField}
-                      fullWidth
+                      component={CustomTextField}
                       name="password"
                       label="Password"
                       type="password"
-                      id="password"
                       autoComplete="current-password"
-                      variant="outlined"
-                      helperText={touched.password && errors.password}
-                      error={touched.password && !!errors.password}
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          borderRadius: 1,
-                        },
-                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
