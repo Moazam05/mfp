@@ -21,21 +21,21 @@ import ToastAlert from "../../components/ToastAlert";
 import Copyright from "../../components/Copyright";
 import CustomTextField from "../../components/CustomTextField";
 
+const validationSchema = Yup.object().shape({
+  firstName: Yup.string().required("First Name is required"),
+  lastName: Yup.string().required("Last Name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+});
+
 export default function SignUp({ onSignIn }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const usersList = useTypedSelector(selectUsers);
-
-  const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required("First Name is required"),
-    lastName: Yup.string().required("Last Name is required"),
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
-  });
 
   const handleSignUp = async (values, { setSubmitting }) => {
     try {
@@ -44,9 +44,6 @@ export default function SignUp({ onSignIn }) {
         email: values.email.toLowerCase(),
         password: values.password,
       };
-
-      console.log("payload", payload);
-      return;
 
       const findUser = usersList.find(
         (user) => user.email === values.email.toLowerCase()

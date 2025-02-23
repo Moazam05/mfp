@@ -1,5 +1,5 @@
-// Redux Toolkit Imports
-import { createSlice } from "@reduxjs/toolkit";
+// userSlice.js
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 
 const getInitialUsers = () => ({
   data: [],
@@ -15,11 +15,9 @@ const userSlice = createSlice({
     addUser(state, action) {
       state.data.push(action.payload);
     },
-
     removeUser(state, action) {
       state.data = state.data.filter((user) => user.email !== action.payload);
     },
-
     updateUser(state, action) {
       const user = findUser(state.data, action.payload.email);
       if (user) {
@@ -32,4 +30,11 @@ const userSlice = createSlice({
 export const { addUser, removeUser, updateUser } = userSlice.actions;
 export default userSlice.reducer;
 
-export const selectUsers = (state) => state?.users?.data;
+// Base selector
+const selectUsersData = (state) => state?.users?.data;
+
+// Memoized selector using createSelector
+export const selectUsers = createSelector(
+  [selectUsersData],
+  (data) => data || []
+);

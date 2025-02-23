@@ -1,6 +1,7 @@
-// Redux Imports
-import {useSelector} from 'react-redux';
+// hooks/useTypedSelector.js
+import { useSelector, shallowEqual } from "react-redux";
 
-const useTypedSelector = useSelector;
+// Use shallowEqual for comparison to prevent unnecessary rerenders
+const useTypedSelector = (selector) => useSelector(selector, shallowEqual);
 
-export default useTypedSelector; // Export useTypedSelector as the default export.
+export default useTypedSelector;
