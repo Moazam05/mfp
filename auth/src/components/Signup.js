@@ -1,17 +1,19 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import {
+  Avatar,
+  Button,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  Paper,
+} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import useTypedSelector from "../hooks/useTypedSelector";
@@ -25,7 +27,7 @@ export default function SignUp({ onSignIn }) {
   const usersList = useTypedSelector(selectUsers);
 
   // Validation schema using Yup
-  const validationSchema = Yup.object({
+  const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string().required("Last Name is required"),
     email: Yup.string()
@@ -43,7 +45,6 @@ export default function SignUp({ onSignIn }) {
         email: values.email.toLowerCase(),
         password: values.password,
       };
-      console.log("payload", payload);
 
       // Check if user already exists
       const findUser = usersList.find(
@@ -123,7 +124,6 @@ export default function SignUp({ onSignIn }) {
             Create Account
           </Typography>
 
-          {/* Formik Form */}
           <Formik
             initialValues={{
               firstName: "",
@@ -134,8 +134,9 @@ export default function SignUp({ onSignIn }) {
             }}
             validationSchema={validationSchema}
             onSubmit={handleSignUp}
+            validateOnMount={false}
           >
-            {({ isSubmitting }) => (
+            {({ isSubmitting, errors, touched }) => (
               <Form style={{ width: "100%" }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
@@ -148,8 +149,8 @@ export default function SignUp({ onSignIn }) {
                       label="First Name"
                       autoFocus
                       variant="outlined"
-                      helperText={<ErrorMessage name="firstName" />}
-                      error={!!ErrorMessage.name}
+                      helperText={touched.firstName && errors.firstName}
+                      error={touched.firstName && !!errors.firstName}
                       sx={{
                         "& .MuiOutlinedInput-root": {
                           borderRadius: 1,
@@ -166,8 +167,8 @@ export default function SignUp({ onSignIn }) {
                       name="lastName"
                       autoComplete="lname"
                       variant="outlined"
-                      helperText={<ErrorMessage name="lastName" />}
-                      error={!!ErrorMessage.name}
+                      helperText={touched.lastName && errors.lastName}
+                      error={touched.lastName && !!errors.lastName}
                       sx={{
                         "& .MuiOutlinedInput-root": {
                           borderRadius: 1,
@@ -184,8 +185,8 @@ export default function SignUp({ onSignIn }) {
                       name="email"
                       autoComplete="email"
                       variant="outlined"
-                      helperText={<ErrorMessage name="email" />}
-                      error={!!ErrorMessage.name}
+                      helperText={touched.email && errors.email}
+                      error={touched.email && !!errors.email}
                       sx={{
                         "& .MuiOutlinedInput-root": {
                           borderRadius: 1,
@@ -203,8 +204,8 @@ export default function SignUp({ onSignIn }) {
                       id="password"
                       autoComplete="current-password"
                       variant="outlined"
-                      helperText={<ErrorMessage name="password" />}
-                      error={!!ErrorMessage.name}
+                      helperText={touched.password && errors.password}
+                      error={touched.password && !!errors.password}
                       sx={{
                         "& .MuiOutlinedInput-root": {
                           borderRadius: 1,
