@@ -54,7 +54,13 @@ const CustomTextField = ({
       sx={{
         "& .MuiOutlinedInput-root": {
           "&:hover fieldset": {
-            borderColor: "primary.main",
+            borderColor: isError ? "error.main" : "primary.main",
+          },
+          "&.Mui-error:hover fieldset": {
+            borderColor: "error.main",
+          },
+          "& fieldset": {
+            transition: "border-color 0.2s ease-in-out",
           },
         },
         ...props.sx,
