@@ -21,6 +21,9 @@ const AuthApp = ({ onSignIn }) => {
       onSignIn: (userData) => {
         // Pass the user data to container's onSignIn handler
         onSignIn(userData);
+
+        // Navigate to home page after sign in - this is a crucial addition
+        navigate("/");
       },
     });
 
@@ -30,7 +33,7 @@ const AuthApp = ({ onSignIn }) => {
     return () => {
       unmount();
     };
-  }, [location, navigate, onSignIn]); // Add onSignIn to dependencies
+  }, [location, navigate, onSignIn]);
 
   return <div ref={ref} />;
 };

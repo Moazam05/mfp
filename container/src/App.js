@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
 import Header from "./components/Header";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -8,7 +8,10 @@ import LoadingFallback from "./components/LoadingFallback";
 const AuthApp = lazy(() => import("./components/AuthApp"));
 const MarketingApp = lazy(() => import("./components/MarketingApp"));
 
-const App = () => {
+// Create a wrapper component that has access to the navigation
+const AppContent = () => {
+  const navigate = useNavigate();
+
   // Initialize state from localStorage if available
   const [isSignedIn, setIsSignedIn] = useState(() => {
     const storedAuthState = localStorage.getItem("loggedInUser");
@@ -20,6 +23,13 @@ const App = () => {
     return storedAuthState ? JSON.parse(storedAuthState).userData : null;
   });
 
+  // Redirect to home if user is already logged in and trying to access auth pages
+  useEffect(() => {
+    if (isSignedIn && window.location.pathname.startsWith("/auth")) {
+      navigate("/");
+    }
+  }, [isSignedIn, navigate]);
+
   // Update localStorage when auth state changes
   useEffect(() => {
     const authState = { isSignedIn, userData };
@@ -29,6 +39,7 @@ const App = () => {
   const handleSignIn = (user) => {
     setIsSignedIn(true);
     setUserData(user);
+    navigate("/"); // Navigate to home page after sign in
   };
 
   const handleSignOut = () => {
@@ -37,7 +48,7 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
+    <>
       <Header
         onSignOut={handleSignOut}
         isSignedIn={isSignedIn}
@@ -55,6 +66,15 @@ const App = () => {
           </Routes>
         </Suspense>
       </ErrorBoundary>
+    </>
+  );
+};
+
+// Main App component with Router
+const App = () => {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 };
