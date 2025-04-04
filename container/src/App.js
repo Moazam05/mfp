@@ -10,16 +10,32 @@ const MarketingApp = lazy(() => import("./components/MarketingApp"));
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  const handleSignIn = (user) => {
+    setIsSignedIn(true);
+    setUserData(user);
+  };
+
+  const handleSignOut = () => {
+    setIsSignedIn(false);
+    setUserData(null);
+  };
+
   return (
     <BrowserRouter>
-      <Header onSignOut={() => setIsSignedIn(false)} isSignedIn={isSignedIn} />
+      <Header
+        onSignOut={handleSignOut}
+        isSignedIn={isSignedIn}
+        userData={userData}
+      />
       <hr />
       <ErrorBoundary>
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route
               path="/auth/*"
-              element={<AuthApp onSignIn={() => setIsSignedIn(true)} />}
+              element={<AuthApp onSignIn={handleSignIn} />}
             />
             <Route path="/*" element={<MarketingApp />} />
           </Routes>

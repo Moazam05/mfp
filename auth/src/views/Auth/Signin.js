@@ -56,7 +56,12 @@ export default function SignIn({ onSignIn }) {
 
       // Simulate a successful sign-in
       setTimeout(() => {
-        // onSignIn(findUser);
+        // Pass the user data to the container
+        onSignIn({
+          name: findUser.name,
+          email: findUser.email,
+        });
+
         ToastAlert("Sign-in successful", "success");
         setSubmitting(false);
       }, 1000);
@@ -67,6 +72,7 @@ export default function SignIn({ onSignIn }) {
     }
   };
 
+  // Rest of your component stays the same...
   return (
     <Box
       sx={{
@@ -191,23 +197,24 @@ export default function SignIn({ onSignIn }) {
                 >
                   {isSubmitting ? "Signing in..." : "Sign In"}
                 </Button>
+
+                <Grid container justifyContent="center">
+                  <Grid item>
+                    <Link
+                      to="/auth/signup"
+                      style={{
+                        textDecoration: "none",
+                        color: "primary.main",
+                        fontWeight: 500,
+                      }}
+                    >
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
+                </Grid>
               </Form>
             )}
           </Formik>
-          <Grid container justifyContent="center">
-            <Grid item>
-              <Link
-                to="/auth/signup"
-                style={{
-                  textDecoration: "none",
-                  color: "primary.main",
-                  fontWeight: 500,
-                }}
-              >
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </Paper>
 
         <Box sx={{ mt: 3 }}>

@@ -18,8 +18,9 @@ const AuthApp = ({ onSignIn }) => {
           navigate(nextPathname);
         }
       },
-      onSignIn: () => {
-        onSignIn();
+      onSignIn: (userData) => {
+        // Pass the user data to container's onSignIn handler
+        onSignIn(userData);
       },
     });
 
@@ -29,7 +30,7 @@ const AuthApp = ({ onSignIn }) => {
     return () => {
       unmount();
     };
-  }, [location, navigate]); // Add location and navigate to dependencies
+  }, [location, navigate, onSignIn]); // Add onSignIn to dependencies
 
   return <div ref={ref} />;
 };
