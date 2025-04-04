@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState } from "react";
+import React, { lazy, Suspense, useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
@@ -9,8 +9,22 @@ const AuthApp = lazy(() => import("./components/AuthApp"));
 const MarketingApp = lazy(() => import("./components/MarketingApp"));
 
 const App = () => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const [userData, setUserData] = useState(null);
+  // Initialize state from localStorage if available
+  const [isSignedIn, setIsSignedIn] = useState(() => {
+    const storedAuthState = localStorage.getItem("loggedInUser");
+    return storedAuthState ? JSON.parse(storedAuthState).isSignedIn : false;
+  });
+
+  const [userData, setUserData] = useState(() => {
+    const storedAuthState = localStorage.getItem("loggedInUser");
+    return storedAuthState ? JSON.parse(storedAuthState).userData : null;
+  });
+
+  // Update localStorage when auth state changes
+  useEffect(() => {
+    const authState = { isSignedIn, userData };
+    localStorage.setItem("loggedInUser", JSON.stringify(authState));
+  }, [isSignedIn, userData]);
 
   const handleSignIn = (user) => {
     setIsSignedIn(true);
