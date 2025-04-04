@@ -208,23 +208,23 @@ export default function SignUp({ onSignIn }) {
                 >
                   {isSubmitting ? "Signing Up..." : "Sign Up"}
                 </Button>
-                <Grid container justifyContent="center">
-                  <Grid item>
-                    <Link
-                      to="/auth/signin"
-                      style={{
-                        textDecoration: "none",
-                        color: "primary.main",
-                        fontWeight: 500,
-                      }}
-                    >
-                      Already have an account? Sign in
-                    </Link>
-                  </Grid>
-                </Grid>
               </Form>
             )}
           </Formik>
+          <Grid container justifyContent="center">
+            <Grid item>
+              <Link
+                to="/auth/signin"
+                style={{
+                  textDecoration: "none",
+                  color: "primary.main",
+                  fontWeight: 500,
+                }}
+              >
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
         </Paper>
         <Box sx={{ mt: 3 }}>
           <Copyright />
