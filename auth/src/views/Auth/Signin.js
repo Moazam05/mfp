@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -11,6 +11,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import useTypedSelector from "../../hooks/useTypedSelector";
+import { selectUsers } from "../../redux/users/userSlice";
+import ToastAlert from "../../components/ToastAlert";
 
 function Copyright() {
   return (
@@ -25,6 +30,66 @@ function Copyright() {
 }
 
 export default function SignIn({ onSignIn }) {
+  const usersList = useTypedSelector(selectUsers);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Validation schema
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: Yup.string().required("Password is required"),
+  });
+
+  // Form handling with Formik
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      rememberMe: false,
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      handleSignIn(values);
+    },
+  });
+
+  const handleSignIn = async (values) => {
+    setIsSubmitting(true);
+
+    try {
+      const payload = {
+        email: values.email.toLowerCase(),
+        password: values.password,
+      };
+
+      const findUser = usersList.find(
+        (user) => user.email === values.email.toLowerCase()
+      );
+
+      if (!findUser) {
+        setIsSubmitting(false);
+        ToastAlert("User not found", "error");
+        return;
+      }
+
+      if (findUser.password !== values.password) {
+        setIsSubmitting(false);
+        ToastAlert("Incorrect password", "error");
+        return;
+      }
+
+      setTimeout(() => {
+        ToastAlert("Sign-in successful", "success");
+        setIsSubmitting(false);
+      }, 1000);
+    } catch (error) {
+      setIsSubmitting(false);
+      console.error("Sign-in error:", error);
+      ToastAlert("Something went wrong", "error");
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -82,19 +147,22 @@ export default function SignIn({ onSignIn }) {
 
           <Box
             component="form"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={formik.handleSubmit}
             sx={{ width: "100%" }}
           >
             <TextField
               margin="normal"
-              required
               fullWidth
               id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
               variant="outlined"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
               sx={{
                 mb: 2,
                 "& .MuiOutlinedInput-root": {
@@ -103,9 +171,9 @@ export default function SignIn({ onSignIn }) {
                 },
               }}
             />
+
             <TextField
               margin="normal"
-              required
               fullWidth
               name="password"
               label="Password"
@@ -113,6 +181,11 @@ export default function SignIn({ onSignIn }) {
               id="password"
               autoComplete="current-password"
               variant="outlined"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
               sx={{
                 mb: 2,
                 "& .MuiOutlinedInput-root": {
@@ -124,8 +197,10 @@ export default function SignIn({ onSignIn }) {
             <FormControlLabel
               control={
                 <Checkbox
-                  value="remember"
+                  name="rememberMe"
                   color="primary"
+                  checked={formik.values.rememberMe}
+                  onChange={formik.handleChange}
                   sx={{ borderRadius: 1 }}
                 />
               }
@@ -141,7 +216,7 @@ export default function SignIn({ onSignIn }) {
               type="submit"
               fullWidth
               variant="contained"
-              onClick={onSignIn}
+              disabled={isSubmitting}
               sx={{
                 mt: 2,
                 mb: 3,
@@ -155,7 +230,7 @@ export default function SignIn({ onSignIn }) {
                 },
               }}
             >
-              Sign In
+              {isSubmitting ? "Signing in..." : "Sign In"}
             </Button>
 
             <Grid container justifyContent="center">
