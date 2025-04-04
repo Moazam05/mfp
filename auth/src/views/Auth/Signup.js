@@ -54,7 +54,7 @@ export default function SignUp({ onSignIn }) {
         return;
       }
 
-      await dispatch(addUser(payload));
+      dispatch(addUser(payload));
       ToastAlert("User added successfully", "success");
 
       setTimeout(() => {
