@@ -127,7 +127,6 @@ export default function SignIn({ onSignIn }) {
           >
             Welcome Back
           </Typography>
-
           <Formik
             initialValues={{
               email: "",
@@ -197,24 +196,24 @@ export default function SignIn({ onSignIn }) {
                 >
                   {isSubmitting ? "Signing in..." : "Sign In"}
                 </Button>
-
-                <Grid container justifyContent="center">
-                  <Grid item>
-                    <Link
-                      to="/auth/signup"
-                      style={{
-                        textDecoration: "none",
-                        color: "primary.main",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {"Don't have an account? Sign Up"}
-                    </Link>
-                  </Grid>
-                </Grid>
               </Form>
             )}
           </Formik>
+
+          <Grid container justifyContent="center" sx={{ mt: 2 }}>
+            <Grid item>
+              <Link
+                to="/auth/signup"
+                style={{
+                  textDecoration: "none",
+                  color: "primary.main",
+                  fontWeight: 500,
+                }}
+              >
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
         </Paper>
 
         <Box sx={{ mt: 3 }}>
