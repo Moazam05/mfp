@@ -1,6 +1,9 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { ToastContainer } from "react-toastify";
 import App from "./App";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 // Mount function to start up the app
 const mount = (el, { onNavigate, initialPath } = {}) => {
@@ -18,12 +21,15 @@ const mount = (el, { onNavigate, initialPath } = {}) => {
   const isStandalone = !onNavigate;
 
   root.render(
-    <App
-      onNavigate={onNavigate}
-      setNavigationRef={setNavigationRef}
-      isStandalone={isStandalone}
-      initialPath={initialPath}
-    />
+    <Provider store={store}>
+      <App
+        onNavigate={onNavigate}
+        setNavigationRef={setNavigationRef}
+        isStandalone={isStandalone}
+        initialPath={initialPath}
+      />
+      <ToastContainer />
+    </Provider>
   );
 
   return {
