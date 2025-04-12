@@ -12,12 +12,14 @@ import { StyledEngineProvider } from "@mui/material/styles";
 import Pricing from "./components/Pricing";
 import NotFound from "./components/NotFound";
 import Products from "./views/Products";
+import ProductsDetails from "./views/Products/components/ProductsDetails";
 
 // Create routes component to avoid duplication
 const RoutesComponent = () => (
   <Routes>
     <Route path="/pricing" element={<Pricing />} />
     <Route path="/" element={<Products />} />
+    <Route path="/products/:id" element={<ProductsDetails />} />
     <Route path="*" element={<NotFound />} />
   </Routes>
 );

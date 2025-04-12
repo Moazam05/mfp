@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import Chip from "@mui/material/Chip";
+import { useNavigate } from "react-router-dom";
 
 // Import redux actions and selectors
 import {
@@ -46,6 +47,7 @@ function Copyright() {
 
 export default function Products() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Get data from Redux store
   const products = useSelector(selectProducts);
@@ -65,6 +67,10 @@ export default function Products() {
 
   const handleDecrementQuantity = (productId) => {
     dispatch(decrementQuantity(productId));
+  };
+
+  const handleNavigateToDetails = (productId) => {
+    navigate(`/products/${productId}`);
   };
 
   return (
@@ -207,9 +213,13 @@ export default function Products() {
                       },
                       borderRadius: 2,
                       overflow: "hidden",
+                      cursor: "pointer",
                     }}
                   >
-                    <Box sx={{ position: "relative" }}>
+                    <Box
+                      sx={{ position: "relative" }}
+                      onClick={() => handleNavigateToDetails(product.id)}
+                    >
                       <CardMedia
                         sx={{
                           height: 200,
@@ -261,6 +271,7 @@ export default function Products() {
                         p: 2.5,
                         borderBottom: "1px solid rgba(0,0,0,0.08)",
                       }}
+                      onClick={() => handleNavigateToDetails(product.id)}
                     >
                       <Typography
                         gutterBottom
