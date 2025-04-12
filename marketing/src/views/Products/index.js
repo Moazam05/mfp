@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -17,12 +18,25 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import Chip from "@mui/material/Chip";
 
+// Import redux actions and selectors
+import {
+  selectProducts,
+  selectCart,
+  selectLoading,
+  selectCartItemsCount,
+  selectCartTotal,
+  addToCart,
+  removeFromCart,
+  incrementQuantity,
+  decrementQuantity,
+} from "../../redux/products/productsSlice";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
       <Link component={RouterLink} to="/" color="inherit">
-        Your Website
+        ShopMaster
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -30,150 +44,28 @@ function Copyright() {
   );
 }
 
-// Dummy product data
-const dummyProducts = [
-  {
-    id: 1,
-    title: "Wireless Bluetooth Headphones",
-    description: "Premium sound quality with noise cancellation technology",
-    price: 129.99,
-    image: "https://picsum.photos/400/225?random=1",
-    availableQty: 15,
-  },
-  {
-    id: 2,
-    title: "Smartphone Stand Holder",
-    description: "Adjustable ergonomic desktop stand for phones and tablets",
-    price: 24.99,
-    image: "https://picsum.photos/400/225?random=2",
-    availableQty: 42,
-  },
-  {
-    id: 3,
-    title: "Smart Fitness Tracker",
-    description: "Track your health metrics with this waterproof smart device",
-    price: 89.99,
-    image: "https://picsum.photos/400/225?random=3",
-    availableQty: 8,
-  },
-  {
-    id: 4,
-    title: "Mechanical Keyboard",
-    description: "RGB backlit mechanical gaming keyboard with custom switches",
-    price: 159.99,
-    image: "https://picsum.photos/400/225?random=4",
-    availableQty: 23,
-  },
-  {
-    id: 5,
-    title: "Portable Power Bank",
-    description: "20000mAh fast charging power bank with dual USB ports",
-    price: 49.99,
-    image: "https://picsum.photos/400/225?random=5",
-    availableQty: 31,
-  },
-  {
-    id: 6,
-    title: "Wireless Charging Pad",
-    description: "Fast wireless charging for all Qi-enabled devices",
-    price: 29.99,
-    image: "https://picsum.photos/400/225?random=6",
-    availableQty: 19,
-  },
-  {
-    id: 7,
-    title: "Smart LED Desk Lamp",
-    description:
-      "Adjustable brightness and color temperature with touch controls",
-    price: 44.99,
-    image: "https://picsum.photos/400/225?random=7",
-    availableQty: 12,
-  },
-  {
-    id: 8,
-    title: "Premium Backpack",
-    description: "Water-resistant laptop backpack with USB charging port",
-    price: 79.99,
-    image: "https://picsum.photos/400/225?random=8",
-    availableQty: 17,
-  },
-  {
-    id: 9,
-    title: "Wireless Mouse",
-    description: "Ergonomic design with adjustable DPI and silent clicking",
-    price: 34.99,
-    image: "https://picsum.photos/400/225?random=9",
-    availableQty: 27,
-  },
-];
-
 export default function Products() {
-  // State for products and cart
-  const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState({});
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
-  // Simulate fetching products from an API
-  useEffect(() => {
-    // Simulate API delay
-    const fetchProducts = async () => {
-      // In a real app, you would fetch from an API
-      // const response = await fetch('https://fakestoreapi.com/products');
-      // const data = await response.json();
+  // Get data from Redux store
+  const products = useSelector(selectProducts);
+  const cart = useSelector(selectCart);
+  const loading = useSelector(selectLoading);
+  const totalItems = useSelector(selectCartItemsCount);
+  const totalPrice = useSelector(selectCartTotal);
 
-      // Using our dummy data instead
-      setTimeout(() => {
-        setProducts(dummyProducts);
-        setLoading(false);
-      }, 500);
-    };
-
-    fetchProducts();
-  }, []);
-
-  // Add to cart function
-  const addToCart = (productId) => {
-    setCart((prevCart) => ({
-      ...prevCart,
-      [productId]: (prevCart[productId] || 0) + 1,
-    }));
+  // Handle cart actions
+  const handleAddToCart = (productId) => {
+    dispatch(addToCart(productId));
   };
 
-  // Increment quantity
-  const incrementQuantity = (productId) => {
-    const product = products.find((p) => p.id === productId);
-    if (cart[productId] < product.availableQty) {
-      setCart((prevCart) => ({
-        ...prevCart,
-        [productId]: (prevCart[productId] || 0) + 1,
-      }));
-    }
+  const handleIncrementQuantity = (productId) => {
+    dispatch(incrementQuantity(productId));
   };
 
-  // Decrement quantity
-  const decrementQuantity = (productId) => {
-    if (cart[productId] > 1) {
-      setCart((prevCart) => ({
-        ...prevCart,
-        [productId]: prevCart[productId] - 1,
-      }));
-    } else {
-      // Remove item if quantity becomes 0
-      const newCart = { ...cart };
-      delete newCart[productId];
-      setCart(newCart);
-    }
+  const handleDecrementQuantity = (productId) => {
+    dispatch(decrementQuantity(productId));
   };
-
-  // Calculate total items in cart
-  const totalItems = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
-
-  // Calculate total price
-  const totalPrice = products.length
-    ? products.reduce((sum, product) => {
-        return sum + (cart[product.id] || 0) * product.price;
-      }, 0)
-    : 0;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
@@ -352,12 +244,13 @@ export default function Products() {
                           }}
                         />
                         <Chip
-                          label={`${product.price.toFixed(2)}`}
+                          label={`$${product.price.toFixed(2)}`}
                           color="primary"
                           size="small"
                           sx={{
                             fontWeight: "bold",
                             boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                            marginRight: 1.8,
                           }}
                         />
                       </Box>
@@ -409,7 +302,7 @@ export default function Products() {
                           variant="contained"
                           color="primary"
                           startIcon={<ShoppingCartIcon />}
-                          onClick={() => addToCart(product.id)}
+                          onClick={() => handleAddToCart(product.id)}
                           fullWidth
                           sx={{
                             py: 1,
@@ -438,7 +331,7 @@ export default function Products() {
                         >
                           <IconButton
                             color="primary"
-                            onClick={() => decrementQuantity(product.id)}
+                            onClick={() => handleDecrementQuantity(product.id)}
                             sx={{
                               bgcolor: "white",
                               boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
@@ -454,7 +347,7 @@ export default function Products() {
 
                           <IconButton
                             color="primary"
-                            onClick={() => incrementQuantity(product.id)}
+                            onClick={() => handleIncrementQuantity(product.id)}
                             disabled={cart[product.id] >= product.availableQty}
                             sx={{
                               bgcolor: "white",
