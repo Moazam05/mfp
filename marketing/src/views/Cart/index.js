@@ -25,9 +25,12 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { Link as RouterLink } from "react-router-dom";
+import LockIcon from "@mui/icons-material/Lock";
+import InfoIcon from "@mui/icons-material/Info";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 // Import redux actions and selectors
 import {
@@ -590,31 +593,114 @@ const Cart = ({ isSignedIn }) => {
         onClose={handleCloseLoginDialog}
         aria-labelledby="login-dialog-title"
         aria-describedby="login-dialog-description"
+        PaperProps={{
+          sx: {
+            borderRadius: 3,
+            boxShadow: "0 8px 30px rgba(0,0,0,0.12)",
+            overflow: "hidden",
+            maxWidth: "550px",
+            width: "100%",
+          },
+        }}
       >
-        <DialogTitle id="login-dialog-title">Login Required</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="login-dialog-description">
-            Please log in to your account before placing an order. This helps us
-            track your order and provide you with the best shopping experience.
-          </DialogContentText>
+        <Box
+          sx={{
+            bgcolor: "primary.main",
+            py: 2,
+            px: 3,
+            color: "white",
+            background: "linear-gradient(90deg, #1976d2 0%, #42a5f5 100%)",
+          }}
+        >
+          <DialogTitle
+            id="login-dialog-title"
+            sx={{ p: 0, fontWeight: "bold" }}
+          >
+            Account Required
+          </DialogTitle>
+        </Box>
+
+        <DialogContent sx={{ p: 4, mt: 2 }}>
+          <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+            <Box
+              sx={{
+                color: "white",
+                bgcolor: "primary.main",
+                p: 1.2,
+                borderRadius: "50%",
+                mr: 3,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                boxShadow: "0 4px 12px rgba(25,118,210,0.3)",
+              }}
+            >
+              <LockIcon />
+            </Box>
+            <DialogContentText
+              id="login-dialog-description"
+              sx={{ color: "text.primary", m: 0 }}
+            >
+              <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>
+                Please Sign In to Complete Your Purchase
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                To provide you with a seamless shopping experience, order
+                tracking and secure checkout, please sign in to your account.
+              </Typography>
+            </DialogContentText>
+          </Box>
+
+          <Box
+            sx={{
+              mt: 3,
+              p: 2,
+              bgcolor: "rgba(25,118,210,0.04)",
+              borderRadius: 2,
+              border: "1px dashed rgba(25,118,210,0.2)",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <InfoIcon sx={{ color: "primary.main", mr: 2 }} />
+            <Typography variant="body2" color="text.secondary">
+              Your cart items will be saved while you sign in.
+            </Typography>
+          </Box>
         </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 3 }}>
+
+        <DialogActions
+          sx={{ px: 4, pb: 4, pt: 1, justifyContent: "space-between" }}
+        >
           <Button
             onClick={handleCloseLoginDialog}
-            color="primary"
-            variant="outlined"
-            sx={{ borderRadius: 2, textTransform: "none" }}
+            color="inherit"
+            sx={{
+              borderRadius: 2,
+              textTransform: "none",
+              fontWeight: "medium",
+              color: "text.secondary",
+            }}
+            startIcon={<ArrowBackIcon fontSize="small" />}
           >
-            Cancel
+            Continue Shopping
           </Button>
           <Button
             onClick={handleNavigateToLogin}
             color="primary"
             variant="contained"
             autoFocus
-            sx={{ borderRadius: 2, textTransform: "none" }}
+            sx={{
+              borderRadius: 2,
+              textTransform: "none",
+              fontWeight: "bold",
+              px: 3,
+              py: 1.2,
+              boxShadow: "0 4px 12px rgba(25,118,210,0.3)",
+            }}
+            endIcon={<ArrowForwardIcon fontSize="small" />}
           >
-            Go to Login
+            Sign In Now
           </Button>
         </DialogActions>
       </Dialog>
