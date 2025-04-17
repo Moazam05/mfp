@@ -41,7 +41,7 @@ import {
   clearCart,
 } from "../../redux/products/productsSlice";
 
-const Cart = () => {
+const Cart = ({ isSignedIn }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -49,6 +49,8 @@ const Cart = () => {
   const [openConfirmDialog, setOpenConfirmDialog] = React.useState(false);
   // State for showing checkout success message
   const [showCheckoutSuccess, setShowCheckoutSuccess] = React.useState(false);
+  // State for showing login required dialog
+  const [showLoginDialog, setShowLoginDialog] = React.useState(false);
 
   // Get data from Redux store
   const products = useSelector(selectProducts);
@@ -95,8 +97,13 @@ const Cart = () => {
 
   // Handle checkout
   const handleCheckout = () => {
-    // In a real app, you would navigate to checkout page
-    // For demo purposes, we'll just show a success message and clear the cart
+    // Check if user is logged in
+    if (!isSignedIn) {
+      setShowLoginDialog(true);
+      return;
+    }
+
+    // Proceed with checkout since user is logged in
     setShowCheckoutSuccess(true);
     dispatch(clearCart());
   };
@@ -104,6 +111,17 @@ const Cart = () => {
   // Close success snackbar
   const handleCloseSuccessSnackbar = () => {
     setShowCheckoutSuccess(false);
+  };
+
+  // Close login dialog
+  const handleCloseLoginDialog = () => {
+    setShowLoginDialog(false);
+  };
+
+  // Navigate to login page
+  const handleNavigateToLogin = () => {
+    setShowLoginDialog(false);
+    navigate("/auth/signin");
   };
 
   return (
@@ -562,6 +580,41 @@ const Cart = () => {
             sx={{ borderRadius: 2, textTransform: "none" }}
           >
             Clear Cart
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Login required dialog */}
+      <Dialog
+        open={showLoginDialog}
+        onClose={handleCloseLoginDialog}
+        aria-labelledby="login-dialog-title"
+        aria-describedby="login-dialog-description"
+      >
+        <DialogTitle id="login-dialog-title">Login Required</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="login-dialog-description">
+            Please log in to your account before placing an order. This helps us
+            track your order and provide you with the best shopping experience.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 3 }}>
+          <Button
+            onClick={handleCloseLoginDialog}
+            color="primary"
+            variant="outlined"
+            sx={{ borderRadius: 2, textTransform: "none" }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleNavigateToLogin}
+            color="primary"
+            variant="contained"
+            autoFocus
+            sx={{ borderRadius: 2, textTransform: "none" }}
+          >
+            Go to Login
           </Button>
         </DialogActions>
       </Dialog>

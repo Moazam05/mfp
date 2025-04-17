@@ -16,18 +16,22 @@ import Cart from "./views/Cart";
 import NotFound from "./components/NotFound";
 
 // Create routes component to avoid duplication
-const RoutesComponent = () => (
+const RoutesComponent = ({ isSignedIn }) => (
   <Routes>
     <Route path="/" element={<Products />} />
     <Route path="/products/:id" element={<ProductsDetails />} />
-    <Route path="/cart" element={<Cart />} />
-
+    <Route path="/cart" element={<Cart isSignedIn={isSignedIn} />} />
     <Route path="*" element={<NotFound />} />
   </Routes>
 );
 
 // Component for container mode
-const MountedApp = ({ onNavigate, setNavigationRef, initialPath }) => {
+const MountedApp = ({
+  onNavigate,
+  setNavigationRef,
+  initialPath,
+  isSignedIn,
+}) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -44,7 +48,7 @@ const MountedApp = ({ onNavigate, setNavigationRef, initialPath }) => {
     }
   }, [navigate, setNavigationRef]);
 
-  return <RoutesComponent />;
+  return <RoutesComponent isSignedIn={isSignedIn} />;
 };
 
 export default ({
@@ -52,12 +56,13 @@ export default ({
   setNavigationRef,
   isStandalone,
   initialPath,
+  isSignedIn,
 }) => {
   return (
     <StyledEngineProvider injectFirst>
       {isStandalone ? (
         <BrowserRouter>
-          <RoutesComponent />
+          <RoutesComponent isSignedIn={isSignedIn} />
         </BrowserRouter>
       ) : (
         <MemoryRouter initialEntries={[initialPath || "/"]}>
@@ -65,6 +70,7 @@ export default ({
             onNavigate={onNavigate}
             setNavigationRef={setNavigationRef}
             initialPath={initialPath}
+            isSignedIn={isSignedIn}
           />
         </MemoryRouter>
       )}

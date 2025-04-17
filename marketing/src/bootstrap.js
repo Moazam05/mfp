@@ -30,10 +30,11 @@ window.marketingApp = {
   },
   // Initialize with empty function that will be replaced during mount
   subscribeToCart: () => () => {},
+  isSignedIn: false, // Initialize with default value
 };
 
 // Mount function to start up the app
-const mount = (el, { onNavigate, initialPath } = {}) => {
+const mount = (el, { onNavigate, initialPath, isSignedIn } = {}) => {
   const root = createRoot(el);
 
   // Initialize a navigation reference that will be set by the App
@@ -47,9 +48,11 @@ const mount = (el, { onNavigate, initialPath } = {}) => {
   // Determine if we're running in standalone mode
   const isStandalone = !onNavigate;
 
+  // Update the isSignedIn value in the global object
+  window.marketingApp.isSignedIn = isSignedIn || false;
+
   // Now update the subscription function with real implementation
   window.marketingApp.subscribeToCart = (callback) => {
-    // console.log("Subscribe to cart called, initial state:", store.getState());
     // Call callback immediately with initial state
     callback({
       count: window.marketingApp.getCartItemsCount(),
@@ -72,6 +75,7 @@ const mount = (el, { onNavigate, initialPath } = {}) => {
         setNavigationRef={setNavigationRef}
         isStandalone={isStandalone}
         initialPath={initialPath}
+        isSignedIn={isSignedIn}
       />
       <ToastContainer />
     </Provider>
