@@ -4,7 +4,7 @@ export const dummyProducts = [
     title: "Wireless Bluetooth Headphones",
     description: "Premium sound quality with noise cancellation technology",
     price: 129.99,
-    image: "https://picsum.photos/400/225?random=1",
+    image: "https://i.postimg.cc/0QGcrwWN/headphones.jpg",
     availableQty: 15,
   },
   {
@@ -12,7 +12,7 @@ export const dummyProducts = [
     title: "Smartphone Stand Holder",
     description: "Adjustable ergonomic desktop stand for phones and tablets",
     price: 24.99,
-    image: "https://picsum.photos/400/225?random=2",
+    image: "https://i.postimg.cc/50mSfMyY/stand-holder.jpg",
     availableQty: 42,
   },
   {
@@ -20,7 +20,7 @@ export const dummyProducts = [
     title: "Smart Fitness Tracker",
     description: "Track your health metrics with this waterproof smart device",
     price: 89.99,
-    image: "https://picsum.photos/400/225?random=3",
+    image: "https://i.postimg.cc/W3c52n7K/fitness-tracker.jpg",
     availableQty: 8,
   },
   {
@@ -28,7 +28,7 @@ export const dummyProducts = [
     title: "Mechanical Keyboard",
     description: "RGB backlit mechanical gaming keyboard with custom switches",
     price: 159.99,
-    image: "https://picsum.photos/400/225?random=4",
+    image: "https://i.postimg.cc/NFpDkwwq/keyboard.jpg",
     availableQty: 23,
   },
   {
@@ -36,7 +36,7 @@ export const dummyProducts = [
     title: "Portable Power Bank",
     description: "20000mAh fast charging power bank with dual USB ports",
     price: 49.99,
-    image: "https://picsum.photos/400/225?random=5",
+    image: "https://i.postimg.cc/wjt2LPfZ/power-bank.jpg",
     availableQty: 31,
   },
   {
@@ -44,7 +44,7 @@ export const dummyProducts = [
     title: "Wireless Charging Pad",
     description: "Fast wireless charging for all Qi-enabled devices",
     price: 29.99,
-    image: "https://picsum.photos/400/225?random=6",
+    image: "https://i.postimg.cc/Jzt6KtnT/charging-pad.jpg",
     availableQty: 19,
   },
   {
@@ -53,7 +53,7 @@ export const dummyProducts = [
     description:
       "Adjustable brightness and color temperature with touch controls",
     price: 44.99,
-    image: "https://picsum.photos/400/225?random=7",
+    image: "https://i.postimg.cc/fb9HnFYm/desk-lamp.jpg",
     availableQty: 12,
   },
   {
@@ -61,7 +61,7 @@ export const dummyProducts = [
     title: "Premium Backpack",
     description: "Water-resistant laptop backpack with USB charging port",
     price: 79.99,
-    image: "https://picsum.photos/400/225?random=8",
+    image: "https://i.postimg.cc/c4x5gFNG/backpack.jpg",
     availableQty: 17,
   },
   {
@@ -69,7 +69,7 @@ export const dummyProducts = [
     title: "Wireless Mouse",
     description: "Ergonomic design with adjustable DPI and silent clicking",
     price: 34.99,
-    image: "https://picsum.photos/400/225?random=9",
+    image: "https://i.postimg.cc/J7qpLjH6/mouse.jpg",
     availableQty: 27,
   },
 ];
