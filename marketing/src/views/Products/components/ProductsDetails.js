@@ -93,10 +93,6 @@ const ProductDetails = () => {
   const inCart = Boolean(cart[productId]);
   const quantity = cart[productId] || 0;
 
-  // Calculate related products (in a real app this would be more sophisticated)
-  const relatedProductId1 = (productId % 9) + 1;
-  const relatedProductId2 = ((productId + 2) % 9) + 1;
-
   return (
     <Container maxWidth="lg" sx={{ py: 6 }}>
       {/* Breadcrumbs Navigation */}
@@ -558,70 +554,6 @@ const ProductDetails = () => {
             </Box>
           </TabPanel>
         </Paper>
-      </Box>
-
-      {/* Related Products Section */}
-      <Box sx={{ mt: 8 }}>
-        <Typography variant="h5" sx={{ fontWeight: "bold", mb: 4 }}>
-          You might also like
-        </Typography>
-
-        <Grid container spacing={4}>
-          {/* This would normally use a map over filtered related products */}
-          {[relatedProductId1, relatedProductId2].map((id) => (
-            <Grid item xs={12} sm={6} key={id}>
-              <Paper
-                elevation={0}
-                sx={{
-                  display: "flex",
-                  borderRadius: 2,
-                  overflow: "hidden",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-                  cursor: "pointer",
-                  transition: "transform 0.2s, box-shadow 0.2s",
-                  "&:hover": {
-                    transform: "translateY(-4px)",
-                    boxShadow: "0 8px 20px rgba(0,0,0,0.12)",
-                  },
-                }}
-                onClick={() => navigate(`/products/${id}`)}
-              >
-                <Box
-                  component="img"
-                  src={`https://picsum.photos/400/225?random=${id}`}
-                  sx={{
-                    width: 140,
-                    height: 140,
-                    objectFit: "cover",
-                  }}
-                />
-                <Box sx={{ p: 2, flexGrow: 1 }}>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ fontWeight: "bold", mb: 1 }}
-                  >
-                    Related Product {id}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 2 }}
-                  >
-                    Another great product you might enjoy based on your
-                    interests.
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    color="primary"
-                    sx={{ fontWeight: "bold" }}
-                  >
-                    ${(29.99 + id * 10).toFixed(2)}
-                  </Typography>
-                </Box>
-              </Paper>
-            </Grid>
-          ))}
-        </Grid>
       </Box>
     </Container>
   );
