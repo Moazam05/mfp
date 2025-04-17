@@ -126,6 +126,7 @@ export default function Products() {
                   color="primary"
                   sx={{
                     mr: 2,
+                    cursor: "pointer",
                     "& .MuiBadge-badge": {
                       fontSize: 12,
                       height: 22,
@@ -133,6 +134,7 @@ export default function Products() {
                       fontWeight: "bold",
                     },
                   }}
+                  onClick={() => navigate("/cart")}
                 >
                   <ShoppingCartIcon color="primary" fontSize="large" />
                 </Badge>

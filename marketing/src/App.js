@@ -9,15 +9,19 @@ import {
 } from "react-router-dom";
 import { StyledEngineProvider } from "@mui/material/styles";
 
-import NotFound from "./components/NotFound";
 import Products from "./views/Products";
 import ProductsDetails from "./views/Products/components/ProductsDetails";
+import Cart from "./views/Cart";
+// Not Found
+import NotFound from "./components/NotFound";
 
 // Create routes component to avoid duplication
 const RoutesComponent = () => (
   <Routes>
     <Route path="/" element={<Products />} />
     <Route path="/products/:id" element={<ProductsDetails />} />
+    <Route path="/cart" element={<Cart />} />
+
     <Route path="*" element={<NotFound />} />
   </Routes>
 );
