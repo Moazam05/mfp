@@ -81,7 +81,7 @@ export default function Header({ isSignedIn, onSignOut, userData }) {
 
   return (
     <>
-      <AppBar position="static" color="default" elevation={0}>
+      <AppBar position="sticky" color="default" elevation={0}>
         <Toolbar
           sx={{
             flexWrap: "wrap",
