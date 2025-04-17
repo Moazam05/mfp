@@ -127,6 +127,19 @@ const Cart = () => {
               mb: 4,
             }}
           >
+            <Button
+              variant="outlined"
+              color="primary"
+              startIcon={<ArrowBackIcon />}
+              onClick={handleContinueShopping}
+              sx={{
+                borderRadius: 2,
+                fontWeight: "bold",
+                textTransform: "none",
+              }}
+            >
+              Continue Shopping
+            </Button>
             <Typography
               component="h1"
               variant="h3"
@@ -142,19 +155,7 @@ const Cart = () => {
               Your Shopping Cart
             </Typography>
 
-            <Button
-              variant="outlined"
-              color="primary"
-              startIcon={<ArrowBackIcon />}
-              onClick={handleContinueShopping}
-              sx={{
-                borderRadius: 2,
-                fontWeight: "bold",
-                textTransform: "none",
-              }}
-            >
-              Continue Shopping
-            </Button>
+            <Box sx={{ opacity: 0 }}>Hello World</Box>
           </Box>
         </Container>
       </Box>
@@ -529,43 +530,6 @@ const Cart = () => {
           </Grid>
         )}
       </Container>
-
-      {/* Footer */}
-      <Box
-        component="footer"
-        sx={{
-          py: 6,
-          px: 2,
-          mt: "auto",
-          background: "linear-gradient(to bottom, #f6f9fc 0%, #eef1f5 100%)",
-          borderTop: "1px solid rgba(0,0,0,0.08)",
-        }}
-      >
-        <Container maxWidth="lg">
-          <Box
-            sx={{
-              borderTop: "1px solid rgba(0,0,0,0.08)",
-              pt: 4,
-              textAlign: "center",
-            }}
-          >
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-              © {new Date().getFullYear()} ShopMaster. All rights reserved.
-            </Typography>
-            <Typography variant="body2" color="text.secondary" align="center">
-              {"Copyright © "}
-              <RouterLink
-                to="/"
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
-                ShopMaster
-              </RouterLink>{" "}
-              {new Date().getFullYear()}
-              {"."}
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
 
       {/* Clear cart confirmation dialog */}
       <Dialog

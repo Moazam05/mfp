@@ -10,8 +10,14 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link component={RouterLink} to="/" color="inherit">
-        ShopMaster
+      <Link
+        component={RouterLink}
+        to="https://www.linkedin.com/in/moazam05"
+        color="inherit"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Salman Muazam
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
