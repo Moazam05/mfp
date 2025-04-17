@@ -605,18 +605,18 @@ const Cart = ({ isSignedIn }) => {
       >
         <Box
           sx={{
-            bgcolor: "primary.main",
+            bgcolor: "error.main",
             py: 2,
             px: 3,
             color: "white",
-            background: "linear-gradient(90deg, #1976d2 0%, #42a5f5 100%)",
+            background: "linear-gradient(90deg, #d32f2f 0%, #f44336 100%)",
           }}
         >
           <DialogTitle
             id="login-dialog-title"
             sx={{ p: 0, fontWeight: "bold" }}
           >
-            Account Required
+            Sign In Required
           </DialogTitle>
         </Box>
 
@@ -625,14 +625,14 @@ const Cart = ({ isSignedIn }) => {
             <Box
               sx={{
                 color: "white",
-                bgcolor: "primary.main",
+                bgcolor: "error.main",
                 p: 1.2,
                 borderRadius: "50%",
                 mr: 3,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                boxShadow: "0 4px 12px rgba(25,118,210,0.3)",
+                boxShadow: "0 4px 12px rgba(211,47,47,0.3)",
               }}
             >
               <LockIcon />
@@ -642,11 +642,11 @@ const Cart = ({ isSignedIn }) => {
               sx={{ color: "text.primary", m: 0 }}
             >
               <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>
-                Please Sign In to Complete Your Purchase
+                Authentication Needed
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                To provide you with a seamless shopping experience, order
-                tracking and secure checkout, please sign in to your account.
+                To complete your purchase, please sign in to your account. This
+                ensures secure checkout and allows you to track your order.
               </Typography>
             </DialogContentText>
           </Box>
@@ -655,16 +655,16 @@ const Cart = ({ isSignedIn }) => {
             sx={{
               mt: 3,
               p: 2,
-              bgcolor: "rgba(25,118,210,0.04)",
+              bgcolor: "rgba(211,47,47,0.04)",
               borderRadius: 2,
-              border: "1px dashed rgba(25,118,210,0.2)",
+              border: "1px dashed rgba(211,47,47,0.2)",
               display: "flex",
               alignItems: "center",
             }}
           >
-            <InfoIcon sx={{ color: "primary.main", mr: 2 }} />
+            <InfoIcon sx={{ color: "error.main", mr: 2 }} />
             <Typography variant="body2" color="text.secondary">
-              Your cart items will be saved while you sign in.
+              Don't worry - your cart items will be saved while you sign in.
             </Typography>
           </Box>
         </DialogContent>
@@ -687,7 +687,7 @@ const Cart = ({ isSignedIn }) => {
           </Button>
           <Button
             onClick={handleNavigateToLogin}
-            color="primary"
+            color="error"
             variant="contained"
             autoFocus
             sx={{
@@ -696,7 +696,7 @@ const Cart = ({ isSignedIn }) => {
               fontWeight: "bold",
               px: 3,
               py: 1.2,
-              boxShadow: "0 4px 12px rgba(25,118,210,0.3)",
+              boxShadow: "0 4px 12px rgba(211,47,47,0.3)",
             }}
             endIcon={<ArrowForwardIcon fontSize="small" />}
           >
