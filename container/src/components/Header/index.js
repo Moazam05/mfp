@@ -39,7 +39,20 @@ export default function Header({ isSignedIn, onSignOut, userData }) {
               color: "inherit",
             }}
           >
-            Micro Frontend App
+            ShopMaster{" "}
+            <span
+              style={{
+                background: "linear-gradient(90deg, #1976d2 0%, #42a5f5 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                textFillColor: "transparent",
+                fontSize: "0.8em",
+                fontWeight: "normal",
+              }}
+            >
+              (Micro Frontend App)
+            </span>
           </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
