@@ -154,8 +154,6 @@ const Cart = () => {
             >
               Your Shopping Cart
             </Typography>
-
-            <Box sx={{ opacity: 0 }}>Hello World</Box>
           </Box>
         </Container>
       </Box>
