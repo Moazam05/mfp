@@ -4,6 +4,33 @@ import { ToastContainer } from "react-toastify";
 import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import {
+  selectCartItemsCount,
+  selectCartTotal,
+} from "./redux/products/productsSlice";
+
+// Initialize the global marketingApp object immediately
+// This ensures it exists even before mount is called
+window.marketingApp = {
+  getCartItemsCount: () => {
+    try {
+      return selectCartItemsCount(store.getState());
+    } catch (error) {
+      console.error("Error getting cart count:", error);
+      return 0;
+    }
+  },
+  getCartTotal: () => {
+    try {
+      return selectCartTotal(store.getState());
+    } catch (error) {
+      console.error("Error getting cart total:", error);
+      return 0;
+    }
+  },
+  // Initialize with empty function that will be replaced during mount
+  subscribeToCart: () => () => {},
+};
 
 // Mount function to start up the app
 const mount = (el, { onNavigate, initialPath } = {}) => {
@@ -19,6 +46,24 @@ const mount = (el, { onNavigate, initialPath } = {}) => {
 
   // Determine if we're running in standalone mode
   const isStandalone = !onNavigate;
+
+  // Now update the subscription function with real implementation
+  window.marketingApp.subscribeToCart = (callback) => {
+    // console.log("Subscribe to cart called, initial state:", store.getState());
+    // Call callback immediately with initial state
+    callback({
+      count: window.marketingApp.getCartItemsCount(),
+      total: window.marketingApp.getCartTotal(),
+    });
+
+    // Return unsubscribe function
+    return store.subscribe(() => {
+      callback({
+        count: window.marketingApp.getCartItemsCount(),
+        total: window.marketingApp.getCartTotal(),
+      });
+    });
+  };
 
   root.render(
     <Provider store={store}>
