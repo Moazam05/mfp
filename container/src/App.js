@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
 import Header from "./components/Header";
 import ErrorBoundary from "./components/ErrorBoundary";
-import LoadingFallback from "./components/LoadingFallback";
+import LoadingFallback from "./components/Loader/LoadingFallback";
+import Footer from "./components/Footer";
 
 const AuthApp = lazy(() => import("./components/AuthApp"));
 const MarketingApp = lazy(() => import("./components/MarketingApp"));
@@ -66,6 +67,8 @@ const AppContent = () => {
           </Routes>
         </Suspense>
       </ErrorBoundary>
+
+      <Footer />
     </>
   );
 };
