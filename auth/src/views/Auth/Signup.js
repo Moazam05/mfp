@@ -18,7 +18,6 @@ import { useDispatch } from "react-redux";
 import useTypedSelector from "../../hooks/useTypedSelector";
 import { addUser, selectUsers } from "../../redux/users/userSlice";
 import ToastAlert from "../../components/ToastAlert";
-import Copyright from "../../components/Copyright";
 import CustomTextField from "../../components/CustomTextField";
 
 const validationSchema = Yup.object().shape({
@@ -217,7 +216,7 @@ export default function SignUp({ onSignIn }) {
                 to="/auth/signin"
                 style={{
                   textDecoration: "none",
-                  color: "primary.main",
+                  color: "#1977d3",
                   fontWeight: 500,
                 }}
               >
@@ -226,9 +225,6 @@ export default function SignUp({ onSignIn }) {
             </Grid>
           </Grid>
         </Paper>
-        <Box sx={{ mt: 3 }}>
-          <Copyright />
-        </Box>
       </Container>
     </Box>
   );

@@ -17,7 +17,6 @@ import { Link, useNavigate } from "react-router-dom";
 import useTypedSelector from "../../hooks/useTypedSelector";
 import { selectUsers } from "../../redux/users/userSlice";
 import ToastAlert from "../../components/ToastAlert";
-import Copyright from "../../components/Copyright";
 import CustomTextField from "../../components/CustomTextField";
 
 const validationSchema = Yup.object().shape({
@@ -206,7 +205,7 @@ export default function SignIn({ onSignIn }) {
                 to="/auth/signup"
                 style={{
                   textDecoration: "none",
-                  color: "primary.main",
+                  color: "#1977d3",
                   fontWeight: 500,
                 }}
               >
@@ -215,10 +214,6 @@ export default function SignIn({ onSignIn }) {
             </Grid>
           </Grid>
         </Paper>
-
-        <Box sx={{ mt: 3 }}>
-          <Copyright />
-        </Box>
       </Container>
     </Box>
   );

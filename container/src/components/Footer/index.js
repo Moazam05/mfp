@@ -3,27 +3,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import { Link as RouterLink } from "react-router-dom";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
-      <Link
-        component={RouterLink}
-        to="https://www.linkedin.com/in/moazam05"
-        color="inherit"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Salman Muazam
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Copyright from "../../../../auth/src/components/Copyright";
 
 const Footer = () => {
   return (

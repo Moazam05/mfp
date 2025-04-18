@@ -68,7 +68,7 @@ const AppContent = () => {
         </Suspense>
       </ErrorBoundary>
 
-      <Footer />
+      {!window.location.pathname.startsWith("/auth") && <Footer />}
     </>
   );
 };
