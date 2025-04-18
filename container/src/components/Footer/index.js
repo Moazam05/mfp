@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Copyright from "../../../../auth/src/components/Copyright";
+import Copyright from "../Copyright";
 
 const Footer = () => {
   return (
