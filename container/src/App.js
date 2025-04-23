@@ -1,20 +1,50 @@
-import React, { Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import Header from "./components/Header";
-import LoadingFallback from "./components/Loader/LoadingFallback";
 import Footer from "./components/Footer";
-
-// Import the AppContent which contains your routes
 import AppContent from "./components/AppContent";
 
 const App = () => {
+  // Initialize state from localStorage if available
+  const [isSignedIn, setIsSignedIn] = useState(() => {
+    const storedAuthState = localStorage.getItem("loggedInUser");
+    return storedAuthState ? JSON.parse(storedAuthState).isSignedIn : false;
+  });
+
+  const [userData, setUserData] = useState(() => {
+    const storedAuthState = localStorage.getItem("loggedInUser");
+    return storedAuthState ? JSON.parse(storedAuthState).userData : null;
+  });
+
+  // Update localStorage when auth state changes
+  useEffect(() => {
+    const authState = { isSignedIn, userData };
+    localStorage.setItem("loggedInUser", JSON.stringify(authState));
+  }, [isSignedIn, userData]);
+
+  const handleSignIn = (user) => {
+    setIsSignedIn(true);
+    setUserData(user);
+  };
+
+  const handleSignOut = () => {
+    setIsSignedIn(false);
+    setUserData(null);
+  };
+
   return (
     <BrowserRouter>
-      <Header />
-      <Suspense fallback={<LoadingFallback />}>
-        <AppContent />
-      </Suspense>
+      <Header
+        isSignedIn={isSignedIn}
+        onSignOut={handleSignOut}
+        userData={userData}
+      />
+      <AppContent
+        isSignedIn={isSignedIn}
+        onSignIn={handleSignIn}
+        onSignOut={handleSignOut}
+      />
       <Footer />
     </BrowserRouter>
   );
