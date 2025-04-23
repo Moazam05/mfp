@@ -1,10 +1,11 @@
 import { createApp } from "vue";
 import PrimeVue from "primevue/config";
-import Dashboard from "./components/Dashboard.vue";
+import App from "./App.vue";
+import "./App.css";
 
 // Mount function to start up the app
 const mount = (el) => {
-  const app = createApp(Dashboard);
+  const app = createApp(App);
 
   // Add PrimeVue to the application
   app.use(PrimeVue, { ripple: true });
