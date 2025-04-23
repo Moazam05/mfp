@@ -5,7 +5,7 @@ import App from "./App.vue";
 import "./App.css";
 import Dashboard from "./views/Dashboard/index.vue";
 import Analytics from "./views/Analytics/index.vue";
-import Settings from "./views/Settings.vue";
+import Settings from "./views/Settings/index.vue";
 
 // Create router instance
 const createRouterInstance = (initialPath) => {
