@@ -38,9 +38,9 @@
 </template>
 
 <script>
-import BarChart from "../components/BarChart.vue";
-import LineChart from "../components/LineChart.vue";
-import PieChart from "../components/PieChart.vue";
+import BarChart from "./components/BarChart.vue";
+import LineChart from "./components/LineChart.vue";
+import PieChart from "./components/PieChart.vue";
 
 export default {
   name: "App",
