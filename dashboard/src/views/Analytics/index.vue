@@ -151,8 +151,8 @@
 
 <script>
 import { defineComponent, ref } from "vue";
-import DeviceBreakdownChart from "./charts/DeviceBreakdownChart.vue";
-import AcquisitionChart from "./charts/AcquisitionChart.vue";
+import DeviceBreakdownChart from "./components/DeviceBreakdownChart.vue";
+import AcquisitionChart from "./components/AcquisitionChart.vue";
 
 export default defineComponent({
   name: "Analytics",

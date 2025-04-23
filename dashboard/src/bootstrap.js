@@ -4,7 +4,7 @@ import { createRouter, createMemoryHistory } from "vue-router";
 import App from "./App.vue";
 import "./App.css";
 import Dashboard from "./views/Dashboard/index.vue";
-import Analytics from "./views/Analytics.vue";
+import Analytics from "./views/Analytics/index.vue";
 import Settings from "./views/Settings.vue";
 
 // Create router instance
