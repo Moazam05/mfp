@@ -20,8 +20,24 @@ module.exports = {
         use: "vue-loader",
       },
       {
-        test: /\.scss|\.css$/,
-        use: ["vue-style-loader", "css-loader", "sass-loader"],
+        test: /\.css$/,
+        use: ["vue-style-loader", "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          "vue-style-loader",
+          "css-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              implementation: require("sass"),
+              sassOptions: {
+                indentedSyntax: false,
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.m?js$/,
@@ -41,6 +57,9 @@ module.exports = {
     new webpack.DefinePlugin({
       __VUE_OPTIONS_API__: true,
       __VUE_PROD_DEVTOOLS__: false,
+      "process.env.NODE_ENV": JSON.stringify(
+        process.env.NODE_ENV || "development"
+      ),
     }),
   ],
 };
