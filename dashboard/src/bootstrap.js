@@ -1,14 +1,49 @@
 import { createApp } from "vue";
 import PrimeVue from "primevue/config";
+import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
 import "./App.css";
+import Dashboard from "./views/Dashboard.vue";
+import Analytics from "./views/Analytics.vue";
+import Settings from "./views/Settings.vue";
+
+// Create router instance
+const createRouterInstance = () => {
+  return createRouter({
+    history: createWebHistory(),
+    routes: [
+      {
+        path: "/",
+        redirect: "/dashboard",
+      },
+      {
+        path: "/dashboard",
+        name: "Dashboard",
+        component: Dashboard,
+      },
+      {
+        path: "/analytics",
+        name: "Analytics",
+        component: Analytics,
+      },
+      {
+        path: "/settings",
+        name: "Settings",
+        component: Settings,
+      },
+    ],
+  });
+};
 
 // Mount function to start up the app
 const mount = (el) => {
   const app = createApp(App);
+  const router = createRouterInstance();
 
   // Add PrimeVue to the application
   app.use(PrimeVue, { ripple: true });
+  // Add router to the application
+  app.use(router);
 
   app.mount(el);
 

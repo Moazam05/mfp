@@ -1,134 +1,68 @@
 <template>
-  <div class="dashboard-container">
-    <h2>Dashboard</h2>
-    <div class="dashboard-stats">
-      <div class="stat-card">
-        <h4>Total Sales</h4>
-        <p class="stat-value">$12,345</p>
-      </div>
-      <div class="stat-card">
-        <h4>Active Users</h4>
-        <p class="stat-value">1,234</p>
-      </div>
-      <div class="stat-card">
-        <h4>Conversion Rate</h4>
-        <p class="stat-value">12.3%</p>
-      </div>
-      <div class="stat-card">
-        <h4>Revenue</h4>
-        <p class="stat-value">$45,678</p>
-      </div>
-    </div>
+  <div class="app-container">
+    <nav class="app-navigation">
+      <ul>
+        <li><router-link to="/dashboard">Dashboard</router-link></li>
+        <li><router-link to="/analytics">Analytics</router-link></li>
+        <li><router-link to="/settings">Settings</router-link></li>
+      </ul>
+    </nav>
 
-    <div class="charts-row">
-      <div class="chart-col">
-        <BarChart />
-      </div>
-      <div class="chart-col">
-        <LineChart />
-      </div>
-    </div>
-
-    <div class="charts-row">
-      <div class="chart-col">
-        <PieChart />
-      </div>
-    </div>
+    <main class="app-content">
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
 <script>
-import BarChart from "./components/BarChart.vue";
-import LineChart from "./components/LineChart.vue";
-import PieChart from "./components/PieChart.vue";
-
 export default {
   name: "App",
-  components: {
-    BarChart,
-    LineChart,
-    PieChart,
-  },
 };
 </script>
 
 <style scoped>
-.dashboard-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-h2 {
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.dashboard-stats {
+.app-container {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.stat-card {
-  flex: 1;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  margin: 0 10px;
-  text-align: center;
+.app-navigation {
+  background-color: #333;
+  padding: 10px 0;
 }
 
-.stat-card:first-child {
-  margin-left: 0;
-}
-
-.stat-card:last-child {
-  margin-right: 0;
-}
-
-.stat-card h4 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  color: #555;
-}
-
-.stat-value {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
+.app-navigation ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
   margin: 0;
+  justify-content: center;
 }
 
-.charts-row {
-  display: flex;
-  margin-bottom: 20px;
+.app-navigation li {
+  margin: 0 15px;
 }
 
-.chart-col {
+.app-navigation a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.app-navigation a:hover {
+  background-color: #555;
+}
+
+.app-navigation a.router-link-active {
+  background-color: #4a90e2;
+}
+
+.app-content {
   flex: 1;
-  margin: 0 10px;
-}
-
-.chart-col:first-child {
-  margin-left: 0;
-}
-
-.chart-col:last-child {
-  margin-right: 0;
-}
-
-@media (max-width: 768px) {
-  .dashboard-stats,
-  .charts-row {
-    flex-direction: column;
-  }
-
-  .stat-card,
-  .chart-col {
-    margin: 0 0 20px 0;
-  }
+  padding: 20px;
 }
 </style>
