@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 
 const AuthApp = lazy(() => import("./components/AuthApp"));
 const MarketingApp = lazy(() => import("./components/MarketingApp"));
+const DashboardApp = lazy(() => import("./components/DashboardApp"));
 
 // Create a wrapper component that has access to the navigation
 const AppContent = () => {
@@ -64,6 +65,7 @@ const AppContent = () => {
               element={<AuthApp onSignIn={handleSignIn} />}
             />
             <Route path="/*" element={<MarketingApp />} />
+            <Route path="/dashboard/*" element={<DashboardApp />} />
           </Routes>
         </Suspense>
       </ErrorBoundary>
