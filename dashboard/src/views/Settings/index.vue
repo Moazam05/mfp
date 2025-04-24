@@ -2,13 +2,13 @@
   <div class="settings-container">
     <div class="user-profile-header">
       <div class="user-avatar">
-        <span class="avatar-text">JD</span>
+        <span class="avatar-text">{{ userInitials }}</span>
       </div>
       <div class="user-info">
-        <h2>Welcome, John Doe</h2>
-        <p class="user-email">john.doe@example.com</p>
+        <h2>Welcome, {{ userData.name || "User" }}</h2>
+        <p class="user-email">{{ userData.email || "email@example.com" }}</p>
       </div>
-      <button class="logout-button">
+      <button class="logout-button" @click="handleLogout">
         <i class="pi pi-sign-out"></i>
         Logout
       </button>
@@ -30,6 +30,14 @@
                   services
                 </p>
               </div>
+              <div class="toggle-switch">
+                <input
+                  type="checkbox"
+                  id="analytics"
+                  v-model="usageAnalytics"
+                />
+                <label for="analytics"></label>
+              </div>
             </div>
 
             <div class="notification-option">
@@ -39,6 +47,14 @@
                   Allow us to use your data to personalize your dashboard
                   experience
                 </p>
+              </div>
+              <div class="toggle-switch">
+                <input
+                  type="checkbox"
+                  id="personalization"
+                  v-model="personalizedExperience"
+                />
+                <label for="personalization"></label>
               </div>
             </div>
           </div>
@@ -69,11 +85,64 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { ref, computed, onMounted } from "vue";
 
-export default defineComponent({
+export default {
   name: "Settings",
-});
+  setup() {
+    // Local states
+    const userData = ref({});
+    const isSignedIn = ref(false);
+    const usageAnalytics = ref(true);
+    const personalizedExperience = ref(true);
+
+    // Get user data from localStorage on component mount
+    onMounted(() => {
+      try {
+        const storedData = localStorage.getItem("loggedInUser");
+        if (storedData) {
+          const parsedData = JSON.parse(storedData);
+          userData.value = parsedData.userData || {};
+          isSignedIn.value = parsedData.isSignedIn || false;
+        }
+      } catch (error) {
+        console.error("Error reading from localStorage:", error);
+      }
+    });
+
+    // Compute user initials from name
+    const userInitials = computed(() => {
+      if (!userData.value.name) return "GU";
+
+      const nameParts = userData.value.name.split(" ");
+      if (nameParts.length >= 2) {
+        return (nameParts[0][0] + nameParts[1][0]).toUpperCase();
+      }
+      return nameParts[0].substring(0, 2).toUpperCase();
+    });
+
+    // Handle logout - the key functionality
+    const handleLogout = () => {
+      // Clear the logged in user data from localStorage
+      localStorage.removeItem("loggedInUser");
+
+      // This is the hack to navigate to container's root URL
+      // We need to navigate to the container app root
+      // Remove '/dashboard' from the current URL
+      const baseUrl = window.location.origin;
+      window.location.href = baseUrl;
+    };
+
+    return {
+      userData,
+      isSignedIn,
+      userInitials,
+      usageAnalytics,
+      personalizedExperience,
+      handleLogout,
+    };
+  },
+};
 </script>
 
 <style scoped>
