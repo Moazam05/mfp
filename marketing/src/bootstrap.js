@@ -15,6 +15,7 @@ import {
 window.marketingApp = {
   getCartItemsCount: () => {
     try {
+      // Access the pre-calculated value directly from Redux
       return selectCartItemsCount(store.getState());
     } catch (error) {
       console.error("Error getting cart count:", error);
@@ -23,6 +24,7 @@ window.marketingApp = {
   },
   getCartTotal: () => {
     try {
+      // Access the pre-calculated value directly from Redux
       return selectCartTotal(store.getState());
     } catch (error) {
       console.error("Error getting cart total:", error);
@@ -55,17 +57,21 @@ const mount = (el, { onNavigate, initialPath, isSignedIn } = {}) => {
   // Now update the subscription function with real implementation
   window.marketingApp.subscribeToCart = (callback) => {
     // Call callback immediately with initial state
-    callback({
+    const initialState = {
       count: window.marketingApp.getCartItemsCount(),
       total: window.marketingApp.getCartTotal(),
-    });
+    };
 
-    // Return unsubscribe function
+    callback(initialState);
+
+    // Return unsubscribe function that updates subscribers on Redux state changes
     return store.subscribe(() => {
-      callback({
+      const newState = {
         count: window.marketingApp.getCartItemsCount(),
         total: window.marketingApp.getCartTotal(),
-      });
+      };
+
+      callback(newState);
     });
   };
 
@@ -88,7 +94,9 @@ const mount = (el, { onNavigate, initialPath, isSignedIn } = {}) => {
         navigationRef(nextPathname);
       }
     },
-    unmount: () => root.unmount(),
+    unmount: () => {
+      root.unmount();
+    },
   };
 };
 
