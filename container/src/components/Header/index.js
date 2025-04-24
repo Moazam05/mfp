@@ -170,19 +170,34 @@ export default function Header({ isSignedIn, onSignOut, userData }) {
           )}
 
           {isSignedIn && userData && (
-            <Box sx={{ display: "flex", alignItems: "center", mr: 2 }}>
-              <Avatar
+            <RouterLink
+              to="/dashboard"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <Box
                 sx={{
-                  width: 32,
-                  height: 32,
-                  bgcolor: "primary.main",
-                  mr: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  mr: 2,
+                  cursor: "pointer",
+                  "&:hover": {
+                    opacity: 0.8,
+                  },
                 }}
               >
-                {avatarLetter}
-              </Avatar>
-              <Typography variant="body2">{userData.name}</Typography>
-            </Box>
+                <Avatar
+                  sx={{
+                    width: 32,
+                    height: 32,
+                    bgcolor: "primary.main",
+                    mr: 1,
+                  }}
+                >
+                  {avatarLetter}
+                </Avatar>
+                <Typography variant="body2">{userData.name}</Typography>
+              </Box>
+            </RouterLink>
           )}
 
           <Button
