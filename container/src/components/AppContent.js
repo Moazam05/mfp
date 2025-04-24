@@ -48,7 +48,7 @@ const AppContent = ({ isSignedIn, onSignIn, onSignOut }) => {
           element={
             <ErrorBoundary>
               <Suspense fallback={<LoadingFallback />}>
-                <MarketingApp isSignedIn={isSignedIn} onSignOut={onSignOut} />
+                <MarketingApp />
               </Suspense>
             </ErrorBoundary>
           }
