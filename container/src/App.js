@@ -44,6 +44,7 @@ const App = () => {
         isSignedIn={isSignedIn}
         onSignIn={handleSignIn}
         onSignOut={handleSignOut}
+        userData={userData}
       />
       <Footer />
     </BrowserRouter>

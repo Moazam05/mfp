@@ -8,13 +8,15 @@ import PublicRoutes from "../routes/PublicRoutes";
 
 // Import your Micro Frontend components
 import AuthApp from "./AuthApp";
+import Admin from "../views/Admin";
 const MarketingApp = lazy(() => import("./MarketingApp"));
 const DashboardApp = lazy(() => import("./DashboardApp"));
 
-const AppContent = ({ isSignedIn, onSignIn, onSignOut }) => {
+const AppContent = ({ isSignedIn, onSignIn, onSignOut, userData }) => {
   return (
     <Suspense fallback={<LoadingFallback />}>
       <Routes>
+        {/* Public Routes */}
         <Route
           path="/auth/*"
           element={
@@ -23,6 +25,16 @@ const AppContent = ({ isSignedIn, onSignIn, onSignOut }) => {
                 <AuthApp onSignIn={onSignIn} />
               </ErrorBoundary>
             </PublicRoutes>
+          }
+        />
+        <Route
+          path="/*"
+          element={
+            <ErrorBoundary>
+              <Suspense fallback={<LoadingFallback />}>
+                <MarketingApp />
+              </Suspense>
+            </ErrorBoundary>
           }
         />
         {/* Protected Routes */}
@@ -39,13 +51,13 @@ const AppContent = ({ isSignedIn, onSignIn, onSignOut }) => {
           }
         />
         <Route
-          path="/*"
+          path="/admin"
           element={
-            <ErrorBoundary>
+            <ProtectedRoutes isSignedIn={isSignedIn}>
               <Suspense fallback={<LoadingFallback />}>
-                <MarketingApp />
+                <Admin userData={userData} />
               </Suspense>
-            </ErrorBoundary>
+            </ProtectedRoutes>
           }
         />
       </Routes>
