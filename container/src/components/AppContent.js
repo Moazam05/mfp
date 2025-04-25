@@ -3,12 +3,13 @@ import { Routes, Route } from "react-router-dom";
 
 import LoadingFallback from "./Loader/LoadingFallback";
 import ErrorBoundary from "./ErrorBoundary";
+import Admin from "../views/Admin";
+
 import ProtectedRoutes from "../routes/ProtectedRoutes";
 import PublicRoutes from "../routes/PublicRoutes";
 
 // Import your Micro Frontend components
 import AuthApp from "./AuthApp";
-import Admin from "../views/Admin";
 const MarketingApp = lazy(() => import("./MarketingApp"));
 const DashboardApp = lazy(() => import("./DashboardApp"));
 
@@ -27,6 +28,7 @@ const AppContent = ({ isSignedIn, onSignIn, onSignOut, userData }) => {
             </PublicRoutes>
           }
         />
+        {/* Common Routes */}
         <Route
           path="/*"
           element={
