@@ -4,9 +4,11 @@ import { Routes, Route } from "react-router-dom";
 import LoadingFallback from "./Loader/LoadingFallback";
 import ErrorBoundary from "./ErrorBoundary";
 import Admin from "../views/Admin";
+import Unauthorized from "../views/Unauthorized";
 
 import ProtectedRoutes from "../routes/ProtectedRoutes";
 import PublicRoutes from "../routes/PublicRoutes";
+import AdminRoute from "../routes/AdminRoute";
 
 // Import your Micro Frontend components
 import AuthApp from "./AuthApp";
@@ -28,6 +30,17 @@ const AppContent = ({ isSignedIn, onSignIn, onSignOut, userData }) => {
             </PublicRoutes>
           }
         />
+
+        {/* Unauthorized Route */}
+        <Route
+          path="/unauthorized"
+          element={
+            <ErrorBoundary>
+              <Unauthorized />
+            </ErrorBoundary>
+          }
+        />
+
         {/* Common Routes */}
         <Route
           path="/*"
@@ -39,6 +52,7 @@ const AppContent = ({ isSignedIn, onSignIn, onSignOut, userData }) => {
             </ErrorBoundary>
           }
         />
+
         {/* Protected Routes */}
         <Route
           path="/dashboard/*"
@@ -52,14 +66,16 @@ const AppContent = ({ isSignedIn, onSignIn, onSignOut, userData }) => {
             </ProtectedRoutes>
           }
         />
+
+        {/* Admin Route with AdminRoute for authorization */}
         <Route
           path="/admin"
           element={
-            <ProtectedRoutes isSignedIn={isSignedIn}>
+            <AdminRoute isSignedIn={isSignedIn} userData={userData}>
               <Suspense fallback={<LoadingFallback />}>
                 <Admin userData={userData} />
               </Suspense>
-            </ProtectedRoutes>
+            </AdminRoute>
           }
         />
       </Routes>
