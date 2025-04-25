@@ -9,6 +9,9 @@ import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import IconButton from "@mui/material/IconButton";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function Header({ isSignedIn, onSignOut, userData }) {
   const [cartState, setCartState] = useState({ count: 0, total: 0 });
@@ -170,34 +173,60 @@ export default function Header({ isSignedIn, onSignOut, userData }) {
           )}
 
           {isSignedIn && userData && (
-            <RouterLink
-              to="/dashboard"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  mr: 2,
-                  cursor: "pointer",
-                  "&:hover": {
-                    opacity: 0.8,
-                  },
-                }}
-              >
-                <Avatar
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box style={{ textDecoration: "none", color: "inherit" }}>
+                <Box
                   sx={{
-                    width: 32,
-                    height: 32,
-                    bgcolor: "primary.main",
-                    mr: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    mr: 2,
+                    "&:hover": {
+                      opacity: 0.8,
+                    },
                   }}
                 >
-                  {avatarLetter}
-                </Avatar>
-                <Typography variant="body2">{userData.name}</Typography>
+                  <Avatar
+                    sx={{
+                      width: 32,
+                      height: 32,
+                      bgcolor: "primary.main",
+                      mr: 1,
+                    }}
+                  >
+                    {avatarLetter}
+                  </Avatar>
+                  <Typography variant="body2">{userData.name}</Typography>
+                </Box>
               </Box>
-            </RouterLink>
+
+              {/* Dashboard Icon */}
+              <Tooltip title="Dashboard">
+                <IconButton
+                  color="primary"
+                  component={RouterLink}
+                  to="/dashboard"
+                  aria-label="Dashboard"
+                  size="small"
+                  sx={{ mr: 1 }}
+                >
+                  <DashboardIcon />
+                </IconButton>
+              </Tooltip>
+
+              {/* Admin Icon */}
+              <Tooltip title="Admin Panel">
+                <IconButton
+                  color="primary"
+                  component={RouterLink}
+                  to="/admin"
+                  aria-label="Admin Panel"
+                  size="small"
+                  sx={{ mr: 1 }}
+                >
+                  <AdminPanelSettingsIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
           )}
 
           <Button

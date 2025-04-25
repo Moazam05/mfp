@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useNavigate } from "react-router-dom";
 
@@ -137,7 +136,7 @@ const Unauthorized = () => {
                 boxShadow: "0 4px 12px rgba(211,47,47,0.3)",
                 background: "linear-gradient(90deg, #d32f2f 0%, #f44336 100%)",
               }}
-              endIcon={<ArrowForwardIcon fontSize="small" />}
+              startIcon={<ArrowBackIcon fontSize="small" />}
             >
               Go to Homepage
             </Button>
