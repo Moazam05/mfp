@@ -11,6 +11,8 @@ const mount = (el, { onNavigate, initialPath, onSignIn } = {}) => {
   const root = createRoot(el);
 
   // HYE  GYS
+  // How are you
+  // Are you ok
 
   // Initialize a navigation reference that will be set by the App
   let navigationRef = null;
