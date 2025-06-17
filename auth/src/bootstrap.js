@@ -10,7 +10,6 @@ import { store } from "./redux/store";
 const mount = (el, { onNavigate, initialPath, onSignIn } = {}) => {
   const root = createRoot(el);
 
-  // HYE  GYS
   // How are you
   // Are you ok
 
