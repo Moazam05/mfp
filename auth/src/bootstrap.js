@@ -10,6 +10,8 @@ import { store } from "./redux/store";
 const mount = (el, { onNavigate, initialPath, onSignIn } = {}) => {
   const root = createRoot(el);
 
+  // HYE  GYS
+
   // Initialize a navigation reference that will be set by the App
   let navigationRef = null;
 
